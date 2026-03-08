@@ -3,768 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O.P. Operations</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* ?? COLOUR PALETTE ??????????????????????????????????????????
-           Edit these variables to change colours site-wide          */
-        :root {
-            --bg:           #0c0c0e;   /* page background (dark charcoal) */
-            --surface:      #141416;   /* card/surface background */
-            --border:       #1e1e22;   /* subtle divider lines */
-            --orange:       #ff8c00;   /* main accent colour */
-            --orange-dim:   rgba(255,140,0,0.07);  /* hover tint on project cards */
-            --orange-glow:  rgba(255,140,0,0.2);   /* glow effects */
-            --text:         #f0f0f0;   /* primary text */
-            --text-sec:     #888;      /* secondary/muted text */
-            --text-dim:     #333338;   /* very dim text (project numbers etc.) */
-        }
-
-        html, body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Space Grotesk', sans-serif;
-            height: 100%;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* ?? HERO ?????????????????????????????????????????????????????
-           Full-height opening section. Left = text, right = globe.
-           Change grid-template-columns to adjust the left/right split. */
-        .hero {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 480px; /* left content | right globe panel */ /* left | bio middle | globe right */
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-left {
-            padding: 80px 60px 80px 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ?? ORANGE ACCENT BAR + NAME BLOCK ??????????????????????????
-           .name-block wraps O.P. + OPERATIONS together so the orange
-           bar on the left spans the full height of both lines.
-           padding-left = space between the bar and the text.           */
-        .name-block {
-            position: relative;
-            padding-left: 28px; /*  gap between orange bar and text */
-            margin-bottom: 44px;
-        }
-
-        .accent-bar {
-            position: absolute;
-            left: 0;
-            top: 12px;
-            bottom: 12px;       /* stretches from top of O.P. to bottom of OPERATIONS */
-            width: 6px;      /*  thickness of the orange bar */
-            background: var(--orange);
-            border-radius: 3px;
-        }
-
-        .hero-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            letter-spacing: 0.28em;
-            color: var(--orange);
-            text-transform: uppercase;
-            margin-bottom: 44px;
-            margin-left: 40px; /*  aligns start of -- with the O in O.P. below */
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        /* -- line before the text */
-        .hero-label::before {
-            content: '';
-            width: 28px;
-            height: 1px;
-            background: var(--orange);
-            flex-shrink: 0;
-        }
-
-        /* -- line after the text */
-        .hero-label::after {
-            content: '';
-            width: 28px;
-            height: 1px;
-            background: var(--orange);
-            flex-shrink: 0;
-        }
-
-        /* O.P. - the big title
-           clamp(min, preferred, max) - scales with viewport width    */
-        .hero-name {
-            font-size: clamp(7rem, 14vw, 14rem); /*  adjust max (14rem) to resize O.P. */
-            font-weight: 700;
-            line-height: 0.88;
-            letter-spacing: -0.04em;
-            color: var(--text);
-        }
-
-        .hero-name .dot {
-            color: var(--orange); /* the dots in O.P. are orange */
-        }
-
-        /* OPERATIONS - subtitle below O.P.
-           margin-left nudges it right to align the O with O.P.'s O   */
-        .hero-tagline {
-            font-size: clamp(1.6rem, 3vw, 2.6rem); /*  adjust max (2.6rem) to resize */
-            font-weight: 500;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--text-sec);
-            margin-top: 10px;
-            margin-left: 18px; /*  nudge right for O alignment with O.P. above */
-        }
-
-        .hero-role {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--text-sec);
-            margin-bottom: 64px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .hero-role .prompt { color: var(--orange); }
-
-        /* Bio strip - absolutely pinned to bottom of hero, full width */
-                .hero-bio {
-            position: absolute;
-            bottom: 44px;                    /*  distance from bottom of hero */
-            left: 80px;                      /*  matches hero-left padding */
-            right: calc(480px - 23px);       /*  stops at the globe panel edge */
-            font-size: 0.82rem;
-            color: var(--text-sec);
-            line-height: 1.2;
-            text-align: justify;                /*  left aligned within left panel */
-            z-index: 10;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 48px;
-        }
-
-        .stat-num {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.18em;
-            color: var(--text-dim);
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        /* ?? GLOBE ?????????????????????????????????????????????????? */
-        .hero-right {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        #globe-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Fade the globe into the background on the left */
-        .hero-right::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to right, var(--bg) 0%, var(--bg) 40%, transparent 65%);
-            z-index: 5;
-            pointer-events: none;
-        }
-
-
-        /* ?? DIVIDER ???????????????????????????????????????????????? */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 0 80px;
-        }
-
-        /* ?? PROJECTS ??????????????????????????????????????????????? */
-        .projects {
-            padding: 100px 80px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: baseline;
-            gap: 24px;
-            margin-bottom: 72px;
-        }
-
-        .section-title {
-            font-size: clamp(1.8rem, 2.5vw, 2.6rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .section-meta {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--orange);
-            letter-spacing: 0.12em;
-        }
-
-        .project-list { display: flex; flex-direction: column; }
-
-        .project-card {
-            display: grid;
-            grid-template-columns: 90px 1fr auto;
-            gap: 44px;
-            align-items: start;
-            padding: 52px 20px;
-            border-top: 1px solid var(--border);
-            margin: 0 -20px;
-            border-radius: 4px;
-            transition: background 0.25s;
-            cursor: default;
-        }
-
-        .project-card:last-child { border-bottom: 1px solid var(--border); }
-
-        .project-card:hover { background: var(--orange-dim); }
-        .project-card:hover .proj-num { color: var(--orange); }
-
-        .proj-num {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--text-dim);
-            line-height: 1;
-            transition: color 0.25s;
-            padding-top: 6px;
-        }
-
-        .proj-name {
-            font-size: 1.55rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .badge-wip {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.58rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            padding: 3px 8px;
-            border: 1px solid var(--orange);
-            border-radius: 3px;
-            color: var(--orange);
-            background: var(--orange-dim);
-        }
-
-        .proj-desc {
-            font-size: 0.9rem;
-            color: var(--text-sec);
-            line-height: 1.65;
-            max-width: 620px;
-            margin-bottom: 22px;
-        }
-
-        .proj-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-        }
-
-        .tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            color: var(--text-sec);
-        }
-
-        .proj-year {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            letter-spacing: 0.1em;
-            padding-top: 8px;
-            white-space: nowrap;
-        }
-
-        /* ?? FOOTER ????????????????????????????????????????????????? */
-        .footer {
-            padding: 56px 80px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-id {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-        .footer-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--orange);
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        /* ?? SCROLLBAR ?????????????????????????????????????????????? */
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
-
-        /* ?? MOBILE RESPONSIVE ??????????????????????????????????????
-           Breakpoints: 768px (tablet), 480px (phone)               */
-
-        @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: 1fr;
-                grid-template-rows: 300px 1fr;
-                min-height: 100vh;
-            }
-
-            .hero-right {
-                order: -1; /* globe moves to top */
-                height: 300px;
-            }
-
-            .hero-right::before {
-                background: linear-gradient(to bottom, transparent 30%, var(--bg) 95%);
-            }
-
-            .hero-left {
-                padding: 20px 36px 60px;
-            }
-
-            .hero-bio {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                right: auto;
-                margin-top: 40px;
-                padding: 0 36px 40px;
-            }
-
-            .hero-label {
-                margin-left: 0;
-            }
-
-            .hero-name {
-                font-size: clamp(4rem, 12vw, 7rem);
-            }
-
-            .hero-tagline {
-                font-size: clamp(1.2rem, 3vw, 1.8rem);
-                margin-left: 8px;
-            }
-
-            .hero-stats {
-                gap: 32px;
-            }
-
-            .stat-num {
-                font-size: 1.8rem;
-            }
-
-            .divider {
-                margin: 0 36px;
-            }
-
-            .projects {
-                padding: 60px 36px;
-            }
-
-            .project-card {
-                grid-template-columns: 60px 1fr;
-                gap: 24px;
-                padding: 36px 12px;
-            }
-
-            .proj-year {
-                grid-column: 2;
-                padding-top: 0;
-                margin-top: -8px;
-            }
-
-            .proj-num {
-                font-size: 2rem;
-            }
-
-            .proj-name {
-                font-size: 1.3rem;
-            }
-
-            .footer {
-                padding: 36px;
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero {
-                grid-template-rows: 240px 1fr;
-            }
-
-            .hero-right {
-                height: 240px;
-            }
-
-            .hero-left {
-                padding: 16px 24px 48px;
-            }
-
-            .hero-bio {
-                padding: 0 24px 32px;
-                font-size: 0.78rem;
-            }
-
-            .hero-label {
-                font-size: 0.68rem;
-                margin-bottom: 28px;
-            }
-
-            .hero-name {
-                font-size: clamp(3.2rem, 16vw, 5rem);
-            }
-
-            .hero-tagline {
-                font-size: clamp(1rem, 4vw, 1.4rem);
-                letter-spacing: 0.08em;
-            }
-
-            .hero-role {
-                font-size: 0.75rem;
-                margin-bottom: 40px;
-            }
-
-            .hero-stats {
-                gap: 24px;
-            }
-
-            .stat-num {
-                font-size: 1.5rem;
-            }
-
-            .stat-label {
-                font-size: 0.55rem;
-            }
-
-            .divider {
-                margin: 0 24px;
-            }
-
-            .projects {
-                padding: 48px 24px;
-            }
-
-            .section-header {
-                flex-direction: column;
-                gap: 8px;
-                margin-bottom: 48px;
-            }
-
-            .section-title {
-                font-size: 1.6rem;
-            }
-
-            .project-card {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                padding: 32px 8px;
-            }
-
-            .proj-num {
-                font-size: 1.4rem;
-                padding-top: 0;
-            }
-
-            .proj-name {
-                font-size: 1.15rem;
-                flex-wrap: wrap;
-            }
-
-            .proj-desc {
-                font-size: 0.82rem;
-            }
-
-            .proj-year {
-                grid-column: 1;
-            }
-
-            .proj-tags {
-                gap: 5px;
-            }
-
-            .tag {
-                font-size: 0.55rem;
-                padding: 3px 7px;
-            }
-
-            .footer {
-                padding: 28px 24px;
-            }
-
-            .footer-id {
-                font-size: 0.6rem;
-            }
-        }
-    </style>
+    <title>Mango Tango - Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- ?? HERO ????????????????????????????????????????????????????????? -->
-<section class="hero">
-    <div class="hero-left">
-        <div class="hero-label">Portfolio &nbsp;/&nbsp; 2026</div>
-        <div class="name-block">
-            <div class="accent-bar"></div>
-            <div class="hero-name">O<span class="dot">.</span>P<span class="dot">.</span></div>
-            <div class="hero-tagline">Operations</div>
-        </div>
-        <div class="hero-role">
-            <span class="prompt">&gt;</span> Software Engineer &mdash; Victoria University of Wellington
-        </div>
-        <div class="hero-stats">
-            <div>
-                <div class="stat-num">05</div>
-                <div class="stat-label">Projects</div>
-            </div>
-            <div>
-                <div class="stat-num">04</div>
-                <div class="stat-label">Years</div>
-            </div>
-            <div>
-                <div class="stat-num">12+</div>
-                <div class="stat-label">Technologies</div>
-            </div>
-        </div>
-    </div>
-    <div class="hero-bio">
-              </div>
-    <div class="hero-right">
-        <canvas id="globe-canvas"></canvas>
-    </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ?? PROJECTS ????????????????????????????????????????????????????? -->
-<section class="projects">
-    <div class="section-header">
-        <div class="section-title">Selected Work</div>
-        <div class="section-meta">// 05 PROJECTS</div>
-    </div>
-    <div class="project-list">
-
-        <div class="project-card">
-            <div class="proj-num">01</div>
-            <div class="proj-body">
-                <div class="proj-name">Apps Launcher</div>
-                <div class="proj-desc">A fully custom Electron-based Game & App launcher managing 40+ titles with mod and trainer support, real-time process monitoring, a mobile PWA remote control, and an integrated music player. Built entirely from scratch as a personal utility.</div>
-                <div class="proj-tags">
-                    <span class="tag">Electron</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">Node.js</span>
-                    <span class="tag">Express</span>
-                    <span class="tag">PWA</span>
-                    <span class="tag">CSS</span>
+<!-- NAV -->
+    <header class="nav" id="nav">
+        <a href="#" class="nav-logo">MT</a>
+        <nav class="nav-menu">
+            <a href="#showcase" class="nav-link">Featuredyes</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <div class="contact-wrap">
+                <button class="nav-link nav-cta" id="contact-btn">Contact</button>
+                <div class="contact-dropdown" id="contact-dropdown">
+                    <button class="contact-item" data-copy="tangosara">
+                        
+                        <span class="contact-name">Discord</span>
+                        <span class="contact-value mono">tangosara</span>
+                    </button>
+                    <button class="contact-item" data-copy="owen@pieries.net">
+                        
+                        <span class="contact-name">Email</span>
+                        <span class="contact-value mono">owen@pieries.net</span>
+                    </button>
+                    <button class="contact-item" data-copy="">
+                        
+                        <span class="contact-name">LinkedIn</span>
+                        <span class="contact-value mono">Coming soon</span>
+                    </button>
                 </div>
             </div>
-            <div class="proj-year">2026</div>
-        </div>
+        </nav>
+    </header>
 
-        <div class="project-card">
-            <div class="proj-num">02</div>
-            <div class="proj-body">
-                <div class="proj-name">Greybox Fuzzer</div>
-                <div class="proj-desc">A custom greybox fuzzer targeting a closed-source Java application. Used JVM bytecode instrumentation via ASM to dynamically attach a Java agent at runtime, track internal program state, and automatically discover crash-inducing inputs without source code access.</div>
-                <div class="proj-tags">
-                    <span class="tag">Java</span>
-                    <span class="tag">ASM Bytecode</span>
-                    <span class="tag">JVM Agents</span>
-                    <span class="tag">Maven</span>
-                    <span class="tag">Security</span>
+    <!-- ================================
+         HERO
+    ================================= -->
+    <section class="hero">
+        <div class="hero-grid">
+
+            <!-- Orange main column -->
+            <div class="hero-main">
+                <div class="hero-orange-bg"></div>
+                <span class="hero-brand">Mango <span class="slash">/</span> Tango</span>
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="hero-title-top">O.P.</span>
+                        <span class="hero-title-bottom">OPERATIONS</span>
+                    </h1>
+                    <p class="hero-sub">
+                        Building innovative tools, mods, and interfaces<br> that are as useful as they feel to use.
+                    </p>
                 </div>
             </div>
-            <div class="proj-year">2025</div>
-        </div>
 
-        <div class="project-card">
-            <div class="proj-num">03</div>
-            <div class="proj-body">
-                <div class="proj-name">ML Sentiment API</div>
-                <div class="proj-desc">Trained a binary sentiment classification model, wrapped it in a Flask REST API, containerised the service with Docker, and deployed to AWS EC2. Includes a remote Python client for querying live predictions.</div>
-                <div class="proj-tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Flask</span>
-                    <span class="tag">Scikit-learn</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">AWS EC2</span>
+            <!-- Dark sidebar -->
+            <aside class="hero-sidebar">
+                <div class="sidebar-top">
+                    <p class="mono sidebar-label">--- Portfolio / 2026 --- </p>
+                    <p class="sidebar-desc">
+                        Developer, gamer, and builder. I make tools I actually
+                        want to use - launchers, dashboards, mods, and everything
+                        in between. Always building something.
+                    </p>
                 </div>
+                <div class="sidebar-stack">
+                    <p class="mono stack-heading">Languages</p>
+                    <ul class="stack-list">
+                        <li class="stack-item mono">01. C / C++     <span class="dot"></span></li>
+                        <li class="stack-item mono">02. Python      <span class="dot"></span></li>
+                        <li class="stack-item mono">03. JavaScript  <span class="dot"></span></li>
+                        <li class="stack-item mono">04. Java        <span class="dot"></span></li>
+                        <li class="stack-item mono">05. Kotlin      <span class="dot"></span></li>
+                        <li class="stack-item mono">06. Rust        <span class="dot"></span></li>
+                        <li class="stack-item mono">07. CSS / HTML  <span class="dot"></span></li>
+                    </ul>
+                </div>
+            </aside>
+
+        </div>
+    </section>
+
+    <!-- ================================
+         VIDEO SHOWCASE
+    ================================= -->
+    <section class="showcase" id="showcase">
+        <div class="showcase-grid">
+
+            <!-- Video -->
+            <div class="showcase-video-wrap has-video">
+                <video class="showcase-video" autoplay muted loop playsinline>
+                    <source src="assets/launcher-demo.mp4" type="video/mp4">
+                </video>
             </div>
-            <div class="proj-year">2024</div>
-        </div>
 
-        <div class="project-card">
-            <div class="proj-num">04</div>
-            <div class="proj-body">
-                <div class="proj-name">Cybersecurity Education Game</div>
-                <div class="proj-desc">A Papers Please-style interactive game teaching young students core cybersecurity concepts. Players tackle real challenges - password hashing, key salting, threat identification - through gameplay. Built as a team engineering project.</div>
-                <div class="proj-tags">
-                    <span class="tag">Game Design</span>
-                    <span class="tag">Cybersecurity</span>
-                    <span class="tag">Team Project</span>
-                    <span class="tag">ENGR301</span>
-                </div>
+            <!-- Info panel -->
+            <div class="showcase-info">
+                <span class="mono showcase-tag">Featured Project</span>
+                <h2 class="showcase-title">MANGO TANGO<br>Launcher</h2>
+                <p class="showcase-desc">
+                    A custom-built game launcher made with Electron.
+                    Organizes 40+ games, handles mod launchers, trainers,
+                    and gives you live process monitoring - all from one
+                    clean interface.
+                </p>
             </div>
-            <div class="proj-year">2025</div>
-        </div>
 
-        <div class="project-card">
-            <div class="proj-num">05</div>
-            <div class="proj-body">
-                <div class="proj-name">
-                    Capstone Project
-                    <span class="badge-wip">In Progress</span>
-                </div>
-                <div class="proj-desc">Final year engineering capstone (ENGR489). Targeting agentic engineering in the cybersecurity domain, supervised by Ian Welch and Simon McCallum at Victoria University of Wellington.</div>
-                <div class="proj-tags">
-                    <span class="tag">Agentic AI</span>
-                    <span class="tag">Cybersecurity</span>
-                    <span class="tag">ENGR489</span>
-                    <span class="tag">2026</span>
-                </div>
+        </div>
+    </section>
+
+    <!-- ================================
+         FEATURE CARDS
+    ================================= -->
+    <section class="features">
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <span class="mono card-num">01</span>
+                <h3 class="card-title">App Library</h3>
+                <p class="card-desc">30+ games and 30+ apps all in one place with multiple launch options. No more launcher or platform hopping.</p>
             </div>
-            <div class="proj-year">2026</div>
+
+            <div class="feature-card">
+                <span class="mono card-num">02</span>
+                <h3 class="card-title">Mod & Trainer Support</h3>
+                <p class="card-desc">Full mod and trainer integration. XXMI, Wand, Frosty, Cheat Engine and more �?" launch them right from the app.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="mono card-num">03</span>
+                <h3 class="card-title">Music Player</h3>
+                <p class="card-desc">Built-in music player so you can vibe while you play, or while you choose what to do next. Queue up tracks without leaving the launcher.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="mono card-num">04</span>
+                <h3 class="card-title">Easy Access</h3>
+                <p class="card-desc">Three quick-access bars at the bottom for filters, recents, and tools like Lossless Scaling, DSX, Content Manager and more.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================================
+         PROJECTS
+    ================================= -->
+    <section class="projects" id="projects">
+
+        <div class="projects-header">
+            <h2 class="projects-title">Projects</h2>
+            <span class="mono projects-sub">What I've done</span>
         </div>
 
-    </div>
-</section>
+                <div class="projects-grid">
 
-<!-- ?? FOOTER ??????????????????????????????????????????????????????? -->
-<footer class="footer">
-    <div class="footer-id">O.P. &nbsp;//&nbsp; Operations</div>
-    <div class="footer-dot"></div>
-    <div class="footer-id">Victoria University of Wellington &nbsp;&middot;&nbsp; 2026</div>
-</footer>
+            <a class="project-card" href="#">
+                <div class="project-inner">
+                    <div class="project-top">
+                        <span class="mono project-num">01</span>
+                        <span class="project-icon">&#x1F916;</span>
+                    </div>
+                    <h3 class="project-title">Capstone Project <span class="mono project-tag-label">In Progress</span></h3>
+                    <p class="project-desc">Building tools to manage and evaluate AI agent swarms &mdash; role-based behaviours, inter-agent communication, sandboxing, and a UI for orchestrating multi-agent teams. Evaluating frameworks like Claude Flow and OpenClaw through a game systems design lens.</p>
+                    <span class="mono project-btn">Explore</span>
+                </div>
+            </a>
 
-<script>
-// ?? WIREFRAME GLOBE (Three.js) ????????????????????????????????????
-const canvas  = document.getElementById('globe-canvas');
-const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            <a class="project-card" href="#">
+                <div class="project-inner">
+                    <div class="project-top">
+                        <span class="mono project-num">02</span>
+                        <span class="project-icon">&#x1F50D;</span>
+                    </div>
+                    <h3 class="project-title">Greybox Fuzzer</h3>
+                    <p class="project-desc">A custom greybox fuzzer targeting a closed-source Java application. Used JVM bytecode instrumentation via ASM to dynamically attach a Java agent at runtime, track internal program state, and automatically discover crash-inducing inputs without source code access.</p>
+                    <span class="mono project-btn">Explore</span>
+                </div>
+            </a>
 
-const scene  = new THREE.Scene();
+            <a class="project-card" href="#">
+                <div class="project-inner">
+                    <div class="project-top">
+                        <span class="mono project-num">03</span>
+                        <span class="project-icon">&#x1F9E0;</span>
+                    </div>
+                    <h3 class="project-title">ML Sentiment API</h3>
+                    <p class="project-desc">Trained a binary sentiment classification model, wrapped it in a Flask REST API, containerised the service with Docker, and deployed to AWS EC2. Includes a remote Python client for querying live predictions.</p>
+                    <span class="mono project-btn">Explore</span>
+                </div>
+            </a>
 
-// Camera - higher z = further away = globe looks smaller on screen
-const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
-camera.position.z = 3.2; //  zoom: increase to zoom out, decrease to zoom in
+            <a class="project-card" href="#">
+                <div class="project-inner">
+                    <div class="project-top">
+                        <span class="mono project-num">04</span>
+                        <span class="project-icon">&#x2699;&#xFE0F;</span>
+                    </div>
+                    <h3 class="project-title">AEBS Simulator</h3>
+                    <p class="project-desc">Designed and implemented sensor configuration for an Automotive Emergency Braking System simulator in Rust. Safety-critical system following ISO-26262 standards with real-time constraints, fault injection testing, and comprehensive verification plans. 5-person team project.</p>
+                    <span class="mono project-btn">Explore</span>
+                </div>
+            </a>
 
-// Wireframe sphere
-// IcosahedronGeometry(radius, detail) - radius controls globe SIZE
-const geo      = new THREE.IcosahedronGeometry(1.15, 5); //  globe size (radius)
-const wireGeo  = new THREE.WireframeGeometry(geo);
-const wireMat  = new THREE.LineBasicMaterial({
-    color:   0xff8c00, //  wireframe colour
-    opacity: 0.3,      //  wireframe opacity (0 = invisible, 1 = solid)
-    transparent: true
-});
-const globe    = new THREE.LineSegments(wireGeo, wireMat);
-globe.position.x = 0.5; //  horizontal position (negative = shift left toward the fade)
-scene.add(globe);
+            <a class="project-card" href="#">
+                <div class="project-inner">
+                    <div class="project-top">
+                        <span class="mono project-num">05</span>
+                        <span class="project-icon">&#x1F6E1;&#xFE0F;</span>
+                    </div>
+                    <h3 class="project-title">Access Granted</h3>
+                    <p class="project-desc">Multiplayer cybersecurity educational game built with a 6-person team. Players solve authentication and password-hashing puzzles in a simulated desktop environment. Implemented full networking layer, SQLite authentication, and JavaFX UI. Two clients connect simultaneously for cooperative gameplay.</p>
+                    <span class="mono project-btn">Explore</span>
+                </div>
+            </a>
 
-// Subtle inner glow sphere (slightly smaller than wireframe, very faint fill)
-const innerMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(1.09, 32, 32), //  keep ~0.03 smaller than globe radius
-    new THREE.MeshBasicMaterial({ color: 0xff8c00, transparent: true, opacity: 0.025 }) //  glow strength
-);
-innerMesh.position.x = 0.5; //  keep in sync with globe.position.x above
-scene.add(innerMesh);
+            <a class="project-card" href="#">
+                <div class="project-inner">
+                    <div class="project-top">
+                        <span class="mono project-num">06</span>
+                        <span class="project-icon">?</span>
+                    </div>
+                    <h3 class="project-title">Coming Soon</h3>
+                    <p class="project-desc">More projects on the way. Stay tuned for updates!</p>
+                    <span class="mono project-btn">Explore</span>
+                </div>
+            </a>
 
-function resize() {
-    const p = canvas.parentElement;
-    renderer.setSize(p.clientWidth, p.clientHeight);
-    camera.aspect = p.clientWidth / p.clientHeight;
-    camera.updateProjectionMatrix();
+        </div>
+    </section>
 
-    // Shift globe left on mobile, right on desktop
-    const isMobile = window.innerWidth <= 900;
-    const xPos = isMobile ? -0.3 : 0.5;
-    const yPos = isMobile ? -0.15 : 0;
-    globe.position.x = xPos;
-    globe.position.y = yPos;
-    innerMesh.position.x = xPos;
-    innerMesh.position.y = yPos;
-}
-resize();
-window.addEventListener('resize', resize);
-
-// Mouse parallax - globe subtly follows the cursor
-// Multiply by higher number = more dramatic tilt
-let mx = 0, my = 0;
-document.addEventListener('mousemove', e => {
-    mx = (e.clientX / window.innerWidth  - 0.5) * 0.5; //  horizontal parallax strength
-    my = (e.clientY / window.innerHeight - 0.5) * 0.3; //  vertical parallax strength
-});
-
-let t = 0;
-(function animate() {
-    requestAnimationFrame(animate);
-    t += 0.0025; //  rotation speed (increase = faster spin)
-    globe.rotation.y = t + mx;
-    globe.rotation.x = my;
-    renderer.render(scene, camera);
-})();
-</script>
+    <script src="js/app.js"></script>
 </body>
 </html>
-
-
 
 
 
