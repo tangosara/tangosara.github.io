@@ -363,7 +363,7 @@
             .hero {
                 grid-template-columns: 1fr;
                 grid-template-rows: 300px 1fr;
-                min-height: auto;
+                min-height: 100vh;
             }
 
             .hero-right {
@@ -731,6 +731,15 @@ function resize() {
     renderer.setSize(p.clientWidth, p.clientHeight);
     camera.aspect = p.clientWidth / p.clientHeight;
     camera.updateProjectionMatrix();
+
+    // Shift globe left on mobile, right on desktop
+    const isMobile = window.innerWidth <= 900;
+    const xPos = isMobile ? -0.3 : 0.5;
+    const yPos = isMobile ? -0.15 : 0;
+    globe.position.x = xPos;
+    globe.position.y = yPos;
+    innerMesh.position.x = xPos;
+    innerMesh.position.y = yPos;
 }
 resize();
 window.addEventListener('resize', resize);
