@@ -576,6 +576,11 @@ ul { list-style: none; }
     .nav-menu { gap: 0.8rem; }
     .nav-link { font-size: 9px; }
     .nav-cta, #contact-btn { padding: 0.35rem 0.8rem; }
+    #contact-btn {
+        background: var(--orange);
+        color: #000;
+        border-color: #000;
+    }
 
     /* Hero */
     .hero-main {
