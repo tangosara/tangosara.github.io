@@ -45,9 +45,19 @@ if (contactBtn && contactDropdown) {
                 const original = valueEl.textContent;
                 valueEl.textContent = 'Copied!';
 
+                // Add tick mark
+                let check = item.querySelector('.contact-check');
+                if (!check) {
+                    check = document.createElement('span');
+                    check.className = 'contact-check';
+                    check.textContent = '\u2713';
+                    valueEl.after(check);
+                }
+
                 setTimeout(() => {
                     item.classList.remove('copied');
                     valueEl.textContent = original;
+                    if (check) check.remove();
                 }, 1500);
             });
         });
