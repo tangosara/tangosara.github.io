@@ -355,6 +355,204 @@
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--orange); }
+
+        /* ?? MOBILE RESPONSIVE ??????????????????????????????????????
+           Breakpoints: 768px (tablet), 480px (phone)               */
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                grid-template-rows: 300px 1fr;
+                min-height: auto;
+            }
+
+            .hero-right {
+                order: -1; /* globe moves to top */
+                height: 300px;
+            }
+
+            .hero-right::before {
+                background: linear-gradient(to bottom, transparent 30%, var(--bg) 95%);
+            }
+
+            .hero-left {
+                padding: 20px 36px 60px;
+            }
+
+            .hero-bio {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                margin-top: 40px;
+                padding: 0 36px 40px;
+            }
+
+            .hero-label {
+                margin-left: 0;
+            }
+
+            .hero-name {
+                font-size: clamp(4rem, 12vw, 7rem);
+            }
+
+            .hero-tagline {
+                font-size: clamp(1.2rem, 3vw, 1.8rem);
+                margin-left: 8px;
+            }
+
+            .hero-stats {
+                gap: 32px;
+            }
+
+            .stat-num {
+                font-size: 1.8rem;
+            }
+
+            .divider {
+                margin: 0 36px;
+            }
+
+            .projects {
+                padding: 60px 36px;
+            }
+
+            .project-card {
+                grid-template-columns: 60px 1fr;
+                gap: 24px;
+                padding: 36px 12px;
+            }
+
+            .proj-year {
+                grid-column: 2;
+                padding-top: 0;
+                margin-top: -8px;
+            }
+
+            .proj-num {
+                font-size: 2rem;
+            }
+
+            .proj-name {
+                font-size: 1.3rem;
+            }
+
+            .footer {
+                padding: 36px;
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                grid-template-rows: 240px 1fr;
+            }
+
+            .hero-right {
+                height: 240px;
+            }
+
+            .hero-left {
+                padding: 16px 24px 48px;
+            }
+
+            .hero-bio {
+                padding: 0 24px 32px;
+                font-size: 0.78rem;
+            }
+
+            .hero-label {
+                font-size: 0.68rem;
+                margin-bottom: 28px;
+            }
+
+            .hero-name {
+                font-size: clamp(3.2rem, 16vw, 5rem);
+            }
+
+            .hero-tagline {
+                font-size: clamp(1rem, 4vw, 1.4rem);
+                letter-spacing: 0.08em;
+            }
+
+            .hero-role {
+                font-size: 0.75rem;
+                margin-bottom: 40px;
+            }
+
+            .hero-stats {
+                gap: 24px;
+            }
+
+            .stat-num {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.55rem;
+            }
+
+            .divider {
+                margin: 0 24px;
+            }
+
+            .projects {
+                padding: 48px 24px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 48px;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+            }
+
+            .project-card {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 32px 8px;
+            }
+
+            .proj-num {
+                font-size: 1.4rem;
+                padding-top: 0;
+            }
+
+            .proj-name {
+                font-size: 1.15rem;
+                flex-wrap: wrap;
+            }
+
+            .proj-desc {
+                font-size: 0.82rem;
+            }
+
+            .proj-year {
+                grid-column: 1;
+            }
+
+            .proj-tags {
+                gap: 5px;
+            }
+
+            .tag {
+                font-size: 0.55rem;
+                padding: 3px 7px;
+            }
+
+            .footer {
+                padding: 28px 24px;
+            }
+
+            .footer-id {
+                font-size: 0.6rem;
+            }
+        }
     </style>
 </head>
 <body>
