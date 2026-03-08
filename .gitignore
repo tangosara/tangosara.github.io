@@ -1,0 +1,7 @@
+node_modules/
+.idea/
+portfolio-backup/
+*.lnk
+*.vbs
+*.ps1
+package-lock.json
