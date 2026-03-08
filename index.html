@@ -65,8 +65,8 @@
         .accent-bar {
             position: absolute;
             left: 0;
-            top: 12px;
-            bottom: 12px;       /* stretches from top of O.P. to bottom of OPERATIONS */
+            top: -2px;
+            bottom: -2px;       /* stretches from top of O.P. to bottom of OPERATIONS */
             width: 6px;      /*  thickness of the orange bar */
             background: var(--orange);
             border-radius: 3px;
@@ -241,7 +241,7 @@
             display: grid;
             grid-template-columns: 90px 1fr auto;
             gap: 44px;
-            align-items: start;
+            align-items: center;
             padding: 52px 20px;
             border-top: 1px solid var(--border);
             margin: 0 -20px;
@@ -262,7 +262,7 @@
             color: var(--text-dim);
             line-height: 1;
             transition: color 0.25s;
-            padding-top: 6px;
+            padding-top: 0;
         }
 
         .proj-name {
@@ -716,7 +716,8 @@ const wireMat  = new THREE.LineBasicMaterial({
     transparent: true
 });
 const globe    = new THREE.LineSegments(wireGeo, wireMat);
-globe.position.x = 0.5; //  horizontal position (negative = shift left toward the fade)
+globe.position.x = -0.3; //  horizontal position (negative = shift left toward the fade)
+globe.position.y = -0.15; // vertical position (negative = shift down)
 scene.add(globe);
 
 // Subtle inner glow sphere (slightly smaller than wireframe, very faint fill)
@@ -724,7 +725,8 @@ const innerMesh = new THREE.Mesh(
     new THREE.SphereGeometry(1.09, 32, 32), //  keep ~0.03 smaller than globe radius
     new THREE.MeshBasicMaterial({ color: 0xff8c00, transparent: true, opacity: 0.025 }) //  glow strength
 );
-innerMesh.position.x = 0.5; //  keep in sync with globe.position.x above
+innerMesh.position.x = -0.3; //  keep in sync with globe.position.x above
+innerMesh.position.y = -0.15; // keep in sync with globe.position.y above
 scene.add(innerMesh);
 
 function resize() {
