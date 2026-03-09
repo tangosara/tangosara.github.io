@@ -150,12 +150,15 @@ ul { list-style: none; }
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     font-weight: 500;
-    color: rgba(0,0,0,0.5);
+    color: rgba(255,255,255,0.9);
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 2;
 }
 
-.hero-brand .slash { color: rgba(0,0,0,0.3); }
+.hero-brand .slash { color: rgba(255,255,255,0.4); }
 
 .hero-title {
     display: flex;
