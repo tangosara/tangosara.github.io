@@ -94,15 +94,43 @@ ul { list-style: none; }
 /* ============================================================
    HERO
 ============================================================ */
-.hero { min-height: 100vh; display: flex; }
+.hero { min-height: 100vh; display: flex; position: relative; }
+
+/* Background layers — below globe canvas */
+.hero-bg-orange {
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 340px;
+    background-color: var(--orange);
+    background-image: linear-gradient(140deg, rgba(0,0,0,0.18) 0%, transparent 55%);
+    z-index: 0;
+}
+.hero-bg-dark {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; width: 340px;
+    background: var(--bg-1);
+    border-left: 1px solid var(--border);
+    z-index: 0;
+}
+
+/* Globe canvas — above backgrounds, below content */
+#hero-globe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
 
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr 340px;
     width: 100%;
+    position: relative;
+    z-index: 2;
 }
 
-/* Orange column */
+/* Orange column — transparent, bg comes from hero-bg-orange */
 .hero-main {
     position: relative;
     display: flex;
@@ -110,33 +138,10 @@ ul { list-style: none; }
     padding: 10rem 4rem 5rem;
     overflow: hidden;
     min-height: 100vh;
-}
-
-.hero-orange-bg {
-    position: absolute;
-    inset: 0;
-    background: var(--orange);
-    z-index: 0;
-}
-
-/* subtle dark gradient from top-right corner */
-.hero-orange-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(140deg, rgba(0,0,0,0.18) 0%, transparent 55%);
+    background: transparent;
 }
 
 .hero-content { position: relative; z-index: 1; }
-
-#hero-globe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
 
 .hero-brand {
     position: absolute;
@@ -180,14 +185,14 @@ ul { list-style: none; }
     line-height: 1.65;
 }
 
-/* Dark sidebar */
+/* Dark sidebar — transparent, bg comes from hero-bg-dark */
 .hero-sidebar {
-    background: var(--bg-1);
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 8rem 2.5rem 3.5rem;
-    border-left: 1px solid var(--border);
+    border-left: none;
     min-height: 100vh;
     gap: 3rem;
 }
@@ -546,7 +551,11 @@ ul { list-style: none; }
         padding: 3rem 2.5rem;
         border-left: none;
         border-top: 1px solid var(--border);
+        background: var(--bg-1) !important;
     }
+    /* Backgrounds: orange fills full width, dark hidden (sidebar stacks below) */
+    .hero-bg-orange { right: 0; }
+    .hero-bg-dark { display: none; }
 
     /* Showcase: stack info below video */
     .showcase-grid {

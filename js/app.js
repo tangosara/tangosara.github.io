@@ -1,52 +1,50 @@
-// Wireframe globe (Three.js — ported from original portfolio, colours inverted for orange hero)
+// Wireframe globe — split colour: black on orange, orange on dark sidebar
 (function () {
     const canvas = document.getElementById('hero-globe');
     if (!canvas || typeof THREE === 'undefined') return;
 
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.autoClear = false;
 
     const scene  = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
     camera.position.z = 3.2;
 
-    // Wireframe — black on orange
     const geo     = new THREE.IcosahedronGeometry(1.15, 5);
     const wireGeo = new THREE.WireframeGeometry(geo);
-    const wireMat = new THREE.LineBasicMaterial({
-        color:       0x0c0c0c,
-        opacity:     0.28,
-        transparent: true
-    });
-    const globe = new THREE.LineSegments(wireGeo, wireMat);
-    scene.add(globe);
 
-    // Subtle inner fill — very faint dark tint
-    const innerMesh = new THREE.Mesh(
-        new THREE.SphereGeometry(1.09, 32, 32),
-        new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.04 })
-    );
+    // Two materials — swapped per scissor pass
+    const matBlack  = new THREE.LineBasicMaterial({ color: 0x0c0c0c, opacity: 0.3,  transparent: true });
+    const matOrange = new THREE.LineBasicMaterial({ color: 0xff8c00, opacity: 0.45, transparent: true });
+    const matInnerBlack  = new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.04 });
+    const matInnerOrange = new THREE.MeshBasicMaterial({ color: 0xff8c00, transparent: true, opacity: 0.06 });
+
+    const globe = new THREE.LineSegments(wireGeo, matBlack);
+    scene.add(globe);
+    const innerMesh = new THREE.Mesh(new THREE.SphereGeometry(1.09, 32, 32), matInnerBlack);
     scene.add(innerMesh);
 
     function resize() {
-        const p = canvas.parentElement;
-        renderer.setSize(p.clientWidth, p.clientHeight);
-        camera.aspect = p.clientWidth / p.clientHeight;
-        camera.updateProjectionMatrix();
-        // Push globe into top-right corner, large and cropped
-        const isMobile = window.innerWidth <= 560;
-        const xPos = isMobile ? 0.2 : 1.6;
-        const yPos = isMobile ? 0   : 1.2;
-        globe.position.set(xPos, yPos, 0);
-        innerMesh.position.set(xPos, yPos, 0);
-        // Zoom camera in so globe is large and fills/overflows the corner
-        camera.position.z = isMobile ? 3.2 : 2.2;
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        const isMobile = window.innerWidth <= 900;
+        // Big globe pushed to top-right, spanning both sections
+        globe.position.set(isMobile ? 0.3 : 1.9, isMobile ? 0.5 : 1.55, 0);
+        innerMesh.position.copy(globe.position);
+        camera.position.z = isMobile ? 3.2 : 1.8;
         camera.updateProjectionMatrix();
     }
     resize();
     window.addEventListener('resize', resize);
 
-    // Subtle mouse parallax
+    // Get x-pixel where orange section ends and sidebar begins
+    function getSplitX() {
+        const sidebar = document.querySelector('.hero-sidebar');
+        if (!sidebar || window.innerWidth <= 900) return canvas.clientWidth;
+        return sidebar.getBoundingClientRect().left - canvas.getBoundingClientRect().left;
+    }
+
     let mx = 0, my = 0;
     document.addEventListener('mousemove', e => {
         mx = (e.clientX / window.innerWidth  - 0.5) * 0.4;
@@ -59,9 +57,31 @@
         t += 0.0025;
         globe.rotation.y = t + mx;
         globe.rotation.x = my;
-        innerMesh.rotation.y = globe.rotation.y;
-        innerMesh.rotation.x = globe.rotation.x;
+        innerMesh.rotation.copy(globe.rotation);
+
+        const dpr    = renderer.getPixelRatio();
+        const W      = Math.round(canvas.clientWidth  * dpr);
+        const H      = Math.round(canvas.clientHeight * dpr);
+        const splitW = Math.round(getSplitX() * dpr);
+
+        renderer.clear();
+        renderer.setScissorTest(true);
+
+        // Left (orange bg) — black globe
+        globe.material     = matBlack;
+        innerMesh.material = matInnerBlack;
+        renderer.setScissor(0, 0, splitW, H);
+        renderer.setViewport(0, 0, W, H);
         renderer.render(scene, camera);
+
+        // Right (dark sidebar) — orange globe
+        globe.material     = matOrange;
+        innerMesh.material = matInnerOrange;
+        renderer.setScissor(splitW, 0, W - splitW, H);
+        renderer.setViewport(0, 0, W, H);
+        renderer.render(scene, camera);
+
+        renderer.setScissorTest(false);
     })();
 })();
 

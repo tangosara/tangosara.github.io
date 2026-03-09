@@ -45,12 +45,18 @@
          HERO
     ================================= -->
     <section class="hero">
+
+        <!-- Background layers — sit below the globe canvas -->
+        <div class="hero-bg-orange"></div>
+        <div class="hero-bg-dark"></div>
+
+        <!-- Globe canvas — spans full hero width, above backgrounds -->
+        <canvas id="hero-globe"></canvas>
+
         <div class="hero-grid">
 
             <!-- Orange main column -->
             <div class="hero-main">
-                <div class="hero-orange-bg"></div>
-                <canvas id="hero-globe"></canvas>
                 <span class="hero-brand">Mango <span class="slash">/</span> Tango</span>
                 <div class="hero-content">
                     <h1 class="hero-title">
