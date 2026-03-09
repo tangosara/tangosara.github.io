@@ -33,7 +33,7 @@
         camera.aspect = w / h;
         const isMobile = window.innerWidth <= 900;
         // Globe pushed to top-right corner, large + cropped
-        globe.position.set(isMobile ? 0.3 : 1.6, isMobile ? 0.5 : 1.2, 0);
+        globe.position.set(isMobile ? 0.3 : 1.6, isMobile ? 0.5 : 1.5, 0);
         innerMesh.position.copy(globe.position);
         camera.position.z = isMobile ? 3.2 : 2.2;
         camera.updateProjectionMatrix();
