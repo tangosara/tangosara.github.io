@@ -26,19 +26,23 @@
     scene.add(innerMesh);
 
     function resize() {
-        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        const w = canvas.clientWidth;
+        const h = canvas.clientHeight;
+        if (!w || !h) return;
+        renderer.setSize(w, h);
+        camera.aspect = w / h;
         const isMobile = window.innerWidth <= 900;
-        // Big globe pushed to top-right, spanning both sections
-        globe.position.set(isMobile ? 0.3 : 1.9, isMobile ? 0.5 : 1.55, 0);
+        // Globe pushed to top-right corner, large + cropped
+        globe.position.set(isMobile ? 0.3 : 1.6, isMobile ? 0.5 : 1.2, 0);
         innerMesh.position.copy(globe.position);
-        camera.position.z = isMobile ? 3.2 : 1.8;
+        camera.position.z = isMobile ? 3.2 : 2.2;
         camera.updateProjectionMatrix();
     }
-    resize();
+    // Defer first resize so layout is ready
+    requestAnimationFrame(resize);
     window.addEventListener('resize', resize);
 
-    // Get x-pixel where orange section ends and sidebar begins
+    // Get CSS-pixel x where orange ends and sidebar begins
     function getSplitX() {
         const sidebar = document.querySelector('.hero-sidebar');
         if (!sidebar || window.innerWidth <= 900) return canvas.clientWidth;
@@ -59,10 +63,11 @@
         globe.rotation.x = my;
         innerMesh.rotation.copy(globe.rotation);
 
-        const dpr    = renderer.getPixelRatio();
-        const W      = Math.round(canvas.clientWidth  * dpr);
-        const H      = Math.round(canvas.clientHeight * dpr);
-        const splitW = Math.round(getSplitX() * dpr);
+        // Three.js setScissor/setViewport take CSS pixels (it handles DPR internally)
+        const W      = canvas.clientWidth;
+        const H      = canvas.clientHeight;
+        const splitW = getSplitX();
+        if (!W || !H) return;
 
         renderer.clear();
         renderer.setScissorTest(true);
