@@ -1,67 +1,68 @@
-// Wireframe globe
+// Wireframe globe (Three.js — ported from original portfolio, colours inverted for orange hero)
 (function () {
     const canvas = document.getElementById('hero-globe');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    if (!canvas || typeof THREE === 'undefined') return;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene  = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1000);
+    camera.position.z = 3.2;
+
+    // Wireframe — black on orange
+    const geo     = new THREE.IcosahedronGeometry(1.15, 5);
+    const wireGeo = new THREE.WireframeGeometry(geo);
+    const wireMat = new THREE.LineBasicMaterial({
+        color:       0x0c0c0c,
+        opacity:     0.28,
+        transparent: true
+    });
+    const globe = new THREE.LineSegments(wireGeo, wireMat);
+    scene.add(globe);
+
+    // Subtle inner fill — very faint dark tint
+    const innerMesh = new THREE.Mesh(
+        new THREE.SphereGeometry(1.09, 32, 32),
+        new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.04 })
+    );
+    scene.add(innerMesh);
 
     function resize() {
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
+        const p = canvas.parentElement;
+        renderer.setSize(p.clientWidth, p.clientHeight);
+        camera.aspect = p.clientWidth / p.clientHeight;
+        camera.updateProjectionMatrix();
+        // Push globe into top-right corner, large and cropped
+        const isMobile = window.innerWidth <= 560;
+        const xPos = isMobile ? 0.2 : 1.6;
+        const yPos = isMobile ? 0   : 1.2;
+        globe.position.set(xPos, yPos, 0);
+        innerMesh.position.set(xPos, yPos, 0);
+        // Zoom camera in so globe is large and fills/overflows the corner
+        camera.position.z = isMobile ? 3.2 : 2.2;
+        camera.updateProjectionMatrix();
     }
     resize();
     window.addEventListener('resize', resize);
 
-    const NUM_LAT = 11;
-    const NUM_LON = 14;
-    const SEGMENTS = 80;
-    let rot = 0;
+    // Subtle mouse parallax
+    let mx = 0, my = 0;
+    document.addEventListener('mousemove', e => {
+        mx = (e.clientX / window.innerWidth  - 0.5) * 0.4;
+        my = (e.clientY / window.innerHeight - 0.5) * 0.25;
+    });
 
-    function project(lat, lon) {
-        const x = Math.cos(lat) * Math.sin(lon);
-        const y = Math.sin(lat);
-        const z = Math.cos(lat) * Math.cos(lon);
-        const xr = x * Math.cos(rot) + z * Math.sin(rot);
-        const yr = y;
-        const r = Math.min(canvas.width, canvas.height) * 0.48;
-        return { x: canvas.width / 2 + xr * r, y: canvas.height / 2 - yr * r, z: x * -Math.sin(rot) + z * Math.cos(rot) };
-    }
-
-    function drawGlobe() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.strokeStyle = 'rgba(0,0,0,0.22)';
-        ctx.lineWidth = 1.2;
-
-        // Latitude lines
-        for (let i = 1; i < NUM_LAT; i++) {
-            const lat = (i / NUM_LAT) * Math.PI - Math.PI / 2;
-            ctx.beginPath();
-            for (let j = 0; j <= SEGMENTS; j++) {
-                const lon = (j / SEGMENTS) * Math.PI * 2;
-                const p = project(lat, lon);
-                j === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-            }
-            ctx.closePath();
-            ctx.stroke();
-        }
-
-        // Longitude lines
-        for (let i = 0; i < NUM_LON; i++) {
-            const lon = (i / NUM_LON) * Math.PI * 2;
-            ctx.beginPath();
-            for (let j = 0; j <= SEGMENTS; j++) {
-                const lat = (j / SEGMENTS) * Math.PI - Math.PI / 2;
-                const p = project(lat, lon);
-                j === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-            }
-            ctx.stroke();
-        }
-
-        rot += 0.004;
-        requestAnimationFrame(drawGlobe);
-    }
-
-    drawGlobe();
+    let t = 0;
+    (function animate() {
+        requestAnimationFrame(animate);
+        t += 0.0025;
+        globe.rotation.y = t + mx;
+        globe.rotation.x = my;
+        innerMesh.rotation.y = globe.rotation.y;
+        innerMesh.rotation.x = globe.rotation.x;
+        renderer.render(scene, camera);
+    })();
 })();
 
 // Nav: add .scrolled class on scroll
