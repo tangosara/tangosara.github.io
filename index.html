@@ -295,6 +295,10 @@
 
                 btn.addEventListener('click', function(e) {
                     e.preventDefault(); e.stopPropagation();
+                    // Lock the card height before swapping content
+                    var card = content.parentElement;
+                    card.style.minHeight = card.offsetHeight + 'px';
+                    videoWrap.style.minHeight = card.offsetHeight + 'px';
                     content.style.transition = 'opacity 0.3s ease';
                     content.style.opacity = '0';
                     setTimeout(function() {
@@ -327,6 +331,9 @@
             if (!btn) return;
             btn.addEventListener('click', function(e) {
                 e.preventDefault(); e.stopPropagation();
+                var card = content.parentElement;
+                card.style.minHeight = card.offsetHeight + 'px';
+                wrap.style.minHeight = card.offsetHeight + 'px';
                 content.style.transition = 'opacity 0.3s ease';
                 content.style.opacity = '0';
                 setTimeout(function() {
