@@ -203,17 +203,20 @@
                 </div>
             </div>
 
-            <a class="project-card" href="#">
-                <div class="project-inner">
+            <div class="project-card" id="sentiment-card" style="cursor:pointer;">
+                <div class="project-inner" id="sentiment-content">
                     <div class="project-top">
                         <span class="mono project-num">03</span>
                         <span class="project-icon">&#x1F9E0;</span>
                     </div>
                     <h3 class="project-title">ML Sentiment API</h3>
                     <p class="project-desc">Trained a binary sentiment classification model, wrapped it in a Flask REST API, containerised the service with Docker, and deployed to AWS EC2. Includes a remote Python client for querying live predictions.</p>
-                    <span class="mono project-btn">Coming Soon</span>
+                    <span class="mono project-btn" id="sentiment-btn">Preview</span>
                 </div>
-            </a>
+                <div id="sentiment-preview-wrap" style="display:none;width:100%;min-height:320px;align-items:center;justify-content:center;padding:1.5rem;box-sizing:border-box;">
+                    <img src="assets/sentiment-demo.jpg" style="max-width:100%;max-height:300px;border-radius:4px;object-fit:contain;border:1px solid rgba(255,107,0,0.4);">
+                </div>
+            </div>
 
             <div class="project-card" id="aebs-card" style="cursor:pointer;">
                 <div class="project-inner" id="aebs-content">
@@ -325,36 +328,40 @@
         })();
 
         (function() {
-            var btn = document.getElementById('aebs-btn');
-            var content = document.getElementById('aebs-content');
-            var wrap = document.getElementById('aebs-preview-wrap');
-            if (!btn) return;
-            btn.addEventListener('click', function(e) {
-                e.preventDefault(); e.stopPropagation();
-                var card = content.parentElement;
-                card.style.minHeight = card.offsetHeight + 'px';
-                wrap.style.minHeight = card.offsetHeight + 'px';
-                content.style.transition = 'opacity 0.3s ease';
-                content.style.opacity = '0';
-                setTimeout(function() {
-                    content.style.display = 'none';
-                    wrap.style.display = 'flex';
-                    wrap.style.opacity = '0';
-                    wrap.style.transition = 'opacity 0.3s ease';
-                    setTimeout(function() { wrap.style.opacity = '1'; }, 50);
-                }, 300);
-            });
-            wrap.addEventListener('click', function() {
-                wrap.style.transition = 'opacity 0.3s ease';
-                wrap.style.opacity = '0';
-                setTimeout(function() {
-                    wrap.style.display = 'none';
-                    content.style.display = '';
+            ['sentiment', 'aebs'].forEach(function(id) {
+                var btn = document.getElementById(id+'-btn');
+                var content = document.getElementById(id+'-content');
+                var wrap = document.getElementById(id+'-preview-wrap');
+                if (!btn) return;
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    var card = content.parentElement;
+                    card.style.minHeight = card.offsetHeight + 'px';
+                    wrap.style.minHeight = card.offsetHeight + 'px';
+                    content.style.transition = 'opacity 0.3s ease';
                     content.style.opacity = '0';
-                    setTimeout(function() { content.style.opacity = '1'; }, 50);
-                }, 300);
+                    setTimeout(function() {
+                        content.style.display = 'none';
+                        wrap.style.display = 'flex';
+                        wrap.style.opacity = '0';
+                        wrap.style.transition = 'opacity 0.3s ease';
+                        setTimeout(function() { wrap.style.opacity = '1'; }, 50);
+                    }, 300);
+                });
+                wrap.addEventListener('click', function() {
+                    wrap.style.transition = 'opacity 0.3s ease';
+                    wrap.style.opacity = '0';
+                    setTimeout(function() {
+                        wrap.style.display = 'none';
+                        content.style.display = '';
+                        content.style.opacity = '0';
+                        setTimeout(function() { content.style.opacity = '1'; }, 50);
+                    }, 300);
+                });
             });
         })();
+
+
     </script>
 </body>
 </html>
