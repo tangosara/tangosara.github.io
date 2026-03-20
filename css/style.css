@@ -376,6 +376,7 @@ ul { list-style: none; }
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     transition: background 0.2s;
+    align-self: stretch;
 }
 .project-card:last-child { border-right: none; }
 .project-card:hover { background: var(--bg-3); }
@@ -392,6 +393,7 @@ ul { list-style: none; }
     flex-direction: column;
     min-height: 380px;
     flex: 1;
+    height: 100%;
     box-sizing: border-box;
 }
 
