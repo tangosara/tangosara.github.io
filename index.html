@@ -384,8 +384,12 @@
                 btn.addEventListener('click', function(e) {
                     e.preventDefault(); e.stopPropagation();
                     var card = content.parentElement;
-                    card.style.minHeight = card.offsetHeight + 'px';
-                    wrap.style.minHeight = card.offsetHeight + 'px';
+                    var cardH = card.offsetHeight + 'px';
+                    card.style.minHeight = cardH;
+                    card.style.maxHeight = cardH;
+                    card.style.overflow = 'hidden';
+                    wrap.style.minHeight = cardH;
+                    wrap.style.maxHeight = cardH;
                     content.style.transition = 'opacity 0.3s ease';
                     content.style.opacity = '0';
                     setTimeout(function() {
@@ -397,10 +401,13 @@
                     }, 300);
                 });
                 wrap.addEventListener('click', function() {
+                    var card = content.parentElement;
                     wrap.style.transition = 'opacity 0.3s ease';
                     wrap.style.opacity = '0';
                     setTimeout(function() {
                         wrap.style.display = 'none';
+                        card.style.maxHeight = '';
+                        card.style.overflow = '';
                         content.style.display = '';
                         content.style.opacity = '0';
                         setTimeout(function() { content.style.opacity = '1'; }, 50);
