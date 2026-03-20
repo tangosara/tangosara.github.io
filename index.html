@@ -169,6 +169,7 @@
 
                 <div class="projects-grid">
 
+            <!-- 01 Agentic Engineering Pro -->
             <a class="project-card" href="#">
                 <div class="project-inner">
                     <div class="project-top">
@@ -181,6 +182,7 @@
                 </div>
             </a>
 
+            <!-- 02 OACI Tasker -->
             <div class="project-card" id="oaci-card" style="cursor:pointer;">
                 <div class="project-inner" id="oaci-content">
                     <div class="project-top">
@@ -203,6 +205,7 @@
                 </div>
             </div>
 
+            <!-- 03 ZZZ Dashboard -->
             <div class="project-card" id="zzz-card" style="cursor:pointer;">
                 <div class="project-inner" id="zzz-content">
                     <div class="project-top">
@@ -213,58 +216,16 @@
                     <p class="project-desc">A personal game tracker for Zenless Zone Zero featuring a Node.js backend, a themed web dashboard, and a native Android app connected via Tailscale VPN. Tracks weekly errands, boss completions, event timers, and session history with live data from JSON files. The web UI uses custom fonts, animated S-rank badges, and a ZZZ-themed visual design. Accessible from anywhere via Tailscale.</p>
                     <span class="mono project-btn" id="zzz-btn">Preview</span>
                 </div>
-                <div id="zzz-preview-wrap" style="display:none;width:100%;align-items:center;justify-content:center;padding:1rem;box-sizing:border-box;">
-                    <img src="assets/zzz-dashboard-preview.jpg" style="max-width:min(200px,60%);max-height:280px;border-radius:12px;object-fit:contain;border:2px solid rgba(255,107,0,0.4);box-shadow:0 0 24px rgba(255,107,0,0.3);">
+                <div id="zzz-preview-wrap" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;padding:0.5rem;box-sizing:border-box;">
+                    <img src="assets/zzz-dashboard-preview.jpg" style="width:100%;height:100%;max-height:100%;border-radius:12px;object-fit:contain;border:2px solid rgba(255,107,0,0.4);box-shadow:0 0 24px rgba(255,107,0,0.3);">
                 </div>
             </div>
 
-            <div class="project-card" id="sentiment-card" style="cursor:pointer;">
-                <div class="project-inner" id="sentiment-content">
-                    <div class="project-top">
-                        <span class="mono project-num">04</span>
-                        <span class="project-icon">&#x1F9E0;</span>
-                    </div>
-                    <h3 class="project-title">ML Sentiment API</h3>
-                    <p class="project-desc">Trained a binary sentiment classification model, wrapped it in a Flask REST API, containerised the service with Docker, and deployed to AWS EC2. Includes a remote Python client for querying live predictions.</p>
-                    <span class="mono project-btn" id="sentiment-btn">Preview</span>
-                </div>
-                <div id="sentiment-preview-wrap" style="display:none;width:100%;min-height:320px;align-items:center;justify-content:center;padding:1.5rem;box-sizing:border-box;">
-                    <img src="assets/sentiment-demo.jpg" style="max-width:100%;max-height:300px;border-radius:4px;object-fit:contain;border:1px solid rgba(255,107,0,0.4);">
-                </div>
-            </div>
-
-            <div class="project-card" id="aebs-card" style="cursor:pointer;">
-                <div class="project-inner" id="aebs-content">
-                    <div class="project-top">
-                        <span class="mono project-num">05</span>
-                        <span class="project-icon">&#x2699;&#xFE0F;</span>
-                    </div>
-                    <h3 class="project-title">AEBS Simulator</h3>
-                    <p class="project-desc">Designed and implemented sensor configuration for an Automotive Emergency Braking System simulator in Rust. Safety-critical system following ISO-26262 standards with real-time constraints, fault injection testing, and comprehensive verification plans. 5-person team project.</p>
-                    <span class="mono project-btn" id="aebs-btn">Preview</span>
-                </div>
-                <div id="aebs-preview-wrap" style="display:none;width:100%;align-items:center;justify-content:center;gap:12px;padding:1.5rem;box-sizing:border-box;">
-                    <img src="assets/aebs-simulation.jpg" style="max-height:260px;max-width:calc(50% - 6px);width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
-                    <img src="assets/aebs-interface.jpg" style="max-height:260px;max-width:calc(50% - 6px);width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
-                </div>
-            </div>
-
-            <a class="project-card" href="#">
-                <div class="project-inner">
-                    <div class="project-top">
-                        <span class="mono project-num">06</span>
-                        <span class="project-icon">&#x1F6E1;&#xFE0F;</span>
-                    </div>
-                    <h3 class="project-title">Access Granted</h3>
-                    <p class="project-desc">Multiplayer cybersecurity educational game built with a 6-person team. Players solve authentication and password-hashing puzzles in a simulated desktop environment. Implemented full networking layer, SQLite authentication, and JavaFX UI. Two clients connect simultaneously for cooperative gameplay.</p>
-                    <span class="mono project-btn">Coming Soon</span>
-                </div>
-            </a>
-
+            <!-- 04 QuickPanel -->
             <div class="project-card" id="quickpanel-card" style="cursor:pointer;">
                 <div class="project-inner" id="quickpanel-content">
                     <div class="project-top">
-                        <span class="mono project-num">07</span>
+                        <span class="mono project-num">04</span>
                         <span class="project-icon">⌚</span>
                     </div>
                     <h3 class="project-title">QuickPanel</h3>
@@ -283,26 +244,74 @@
                 </div>
             </div>
 
+            <!-- 05 ML Sentiment API -->
+            <div class="project-card" id="sentiment-card" style="cursor:pointer;">
+                <div class="project-inner" id="sentiment-content">
+                    <div class="project-top">
+                        <span class="mono project-num">05</span>
+                        <span class="project-icon">&#x1F9E0;</span>
+                    </div>
+                    <h3 class="project-title">ML Sentiment API</h3>
+                    <p class="project-desc">Trained a binary sentiment classification model, wrapped it in a Flask REST API, containerised the service with Docker, and deployed to AWS EC2. Includes a remote Python client for querying live predictions.</p>
+                    <span class="mono project-btn" id="sentiment-btn">Preview</span>
+                </div>
+                <div id="sentiment-preview-wrap" style="display:none;width:100%;min-height:320px;align-items:center;justify-content:center;padding:1.5rem;box-sizing:border-box;">
+                    <img src="assets/sentiment-demo.jpg" style="max-width:100%;max-height:300px;border-radius:4px;object-fit:contain;border:1px solid rgba(255,107,0,0.4);">
+                </div>
+            </div>
+
+            <!-- 06 Mango Tango Launcher -->
+            <a class="project-card" href="#showcase" id="launcher-card">
+                <div class="project-inner">
+                    <div class="project-top">
+                        <span class="mono project-num">06</span>
+                        <span class="project-icon">&#x1F680;</span>
+                    </div>
+                    <h3 class="project-title">Mango Tango Launcher</h3>
+                    <p class="project-desc">A custom Electron game launcher with mod and trainer management, built for a 40+ game library. Features a tools sidebar, an apps page, real-time process monitoring with green/purple status badges, and a mobile-friendly web interface accessible over the local network. Designed with a dark + orange theme.</p>
+                    <span class="mono project-btn">Explore ↑</span>
+                </div>
+            </a>
+
+            <!-- 07 AEBS Simulator -->
+            <div class="project-card" id="aebs-card" style="cursor:pointer;">
+                <div class="project-inner" id="aebs-content">
+                    <div class="project-top">
+                        <span class="mono project-num">07</span>
+                        <span class="project-icon">&#x2699;&#xFE0F;</span>
+                    </div>
+                    <h3 class="project-title">AEBS Simulator</h3>
+                    <p class="project-desc">Designed and implemented sensor configuration for an Automotive Emergency Braking System simulator in Rust. Safety-critical system following ISO-26262 standards with real-time constraints, fault injection testing, and comprehensive verification plans. 5-person team project.</p>
+                    <span class="mono project-btn" id="aebs-btn">Preview</span>
+                </div>
+                <div id="aebs-preview-wrap" style="display:none;width:100%;align-items:center;justify-content:center;gap:12px;padding:1.5rem;box-sizing:border-box;">
+                    <img src="assets/aebs-simulation.jpg" style="max-height:260px;max-width:calc(50% - 6px);width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
+                    <img src="assets/aebs-interface.jpg" style="max-height:260px;max-width:calc(50% - 6px);width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
+                </div>
+            </div>
+
+            <!-- 08 Access Granted -->
             <a class="project-card" href="#">
                 <div class="project-inner">
                     <div class="project-top">
                         <span class="mono project-num">08</span>
-                        <span class="project-icon">&#x1F50D;</span>
+                        <span class="project-icon">&#x1F6E1;&#xFE0F;</span>
                     </div>
-                    <h3 class="project-title">Greybox Fuzzer</h3>
-                    <p class="project-desc">A coverage-guided greybox fuzzer inspired by AFL, implemented in Python. Uses lightweight instrumentation to track code coverage, applies mutation-based input generation, and prioritises seeds that explore new execution paths. Targets C programs compiled with custom instrumentation for branch tracing.</p>
+                    <h3 class="project-title">Access Granted</h3>
+                    <p class="project-desc">Multiplayer cybersecurity educational game built with a 6-person team. Players solve authentication and password-hashing puzzles in a simulated desktop environment. Implemented full networking layer, SQLite authentication, and JavaFX UI. Two clients connect simultaneously for cooperative gameplay.</p>
                     <span class="mono project-btn">Coming Soon</span>
                 </div>
             </a>
 
+            <!-- 09 Greybox Fuzzer -->
             <a class="project-card" href="#">
                 <div class="project-inner">
                     <div class="project-top">
                         <span class="mono project-num">09</span>
-                        <span class="project-icon">&#x1F3AE;</span>
+                        <span class="project-icon">&#x1F50D;</span>
                     </div>
-                    <h3 class="project-title">Mango Tango Launcher</h3>
-                    <p class="project-desc">A custom Electron game launcher with mod and trainer management, built for a 40+ game library. Features a tools sidebar, an apps page, real-time process monitoring with green/purple status badges, and a mobile-friendly web interface accessible over the local network. Designed with a dark + orange theme.</p>
+                    <h3 class="project-title">Greybox Fuzzer</h3>
+                    <p class="project-desc">A coverage-guided greybox fuzzer inspired by AFL, implemented in Python. Uses lightweight instrumentation to track code coverage, applies mutation-based input generation, and prioritises seeds that explore new execution paths. Targets C programs compiled with custom instrumentation for branch tracing.</p>
                     <span class="mono project-btn">Coming Soon</span>
                 </div>
             </a>
