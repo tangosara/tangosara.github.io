@@ -203,10 +203,25 @@
                 </div>
             </div>
 
+            <div class="project-card" id="zzz-card" style="cursor:pointer;">
+                <div class="project-inner" id="zzz-content">
+                    <div class="project-top">
+                        <span class="mono project-num">03</span>
+                        <span class="project-icon">&#x1F3AE;</span>
+                    </div>
+                    <h3 class="project-title">ZZZ Dashboard</h3>
+                    <p class="project-desc">A personal game tracker for Zenless Zone Zero featuring a Node.js backend, a themed web dashboard, and a native Android app connected via Tailscale VPN. Tracks weekly errands, boss completions, event timers, and session history with live data from JSON files. The web UI uses custom fonts, animated S-rank badges, and a ZZZ-themed visual design. Accessible from anywhere via Tailscale.</p>
+                    <span class="mono project-btn" id="zzz-btn">Preview</span>
+                </div>
+                <div id="zzz-preview-wrap" style="display:none;width:100%;align-items:center;justify-content:center;padding:1.5rem;box-sizing:border-box;">
+                    <img src="assets/zzz-dashboard-preview.jpg" style="max-width:min(320px,90%);max-height:500px;border-radius:12px;object-fit:contain;border:2px solid rgba(255,107,0,0.4);box-shadow:0 0 24px rgba(255,107,0,0.3);">
+                </div>
+            </div>
+
             <div class="project-card" id="sentiment-card" style="cursor:pointer;">
                 <div class="project-inner" id="sentiment-content">
                     <div class="project-top">
-                        <span class="mono project-num">03</span>
+                        <span class="mono project-num">04</span>
                         <span class="project-icon">&#x1F9E0;</span>
                     </div>
                     <h3 class="project-title">ML Sentiment API</h3>
@@ -221,7 +236,7 @@
             <div class="project-card" id="aebs-card" style="cursor:pointer;">
                 <div class="project-inner" id="aebs-content">
                     <div class="project-top">
-                        <span class="mono project-num">04</span>
+                        <span class="mono project-num">05</span>
                         <span class="project-icon">&#x2699;&#xFE0F;</span>
                     </div>
                     <h3 class="project-title">AEBS Simulator</h3>
@@ -237,7 +252,7 @@
             <a class="project-card" href="#">
                 <div class="project-inner">
                     <div class="project-top">
-                        <span class="mono project-num">05</span>
+                        <span class="mono project-num">06</span>
                         <span class="project-icon">&#x1F6E1;&#xFE0F;</span>
                     </div>
                     <h3 class="project-title">Access Granted</h3>
@@ -249,7 +264,7 @@
             <div class="project-card" id="quickpanel-card" style="cursor:pointer;">
                 <div class="project-inner" id="quickpanel-content">
                     <div class="project-top">
-                        <span class="mono project-num">06</span>
+                        <span class="mono project-num">07</span>
                         <span class="project-icon">⌚</span>
                     </div>
                     <h3 class="project-title">QuickPanel</h3>
@@ -328,7 +343,7 @@
         })();
 
         (function() {
-            ['sentiment', 'aebs'].forEach(function(id) {
+            ['zzz', 'sentiment', 'aebs'].forEach(function(id) {
                 var btn = document.getElementById(id+'-btn');
                 var content = document.getElementById(id+'-content');
                 var wrap = document.getElementById(id+'-preview-wrap');
