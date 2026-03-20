@@ -175,23 +175,33 @@
                         <span class="mono project-num">01</span>
                         <span class="project-icon">&#x1F916;</span>
                     </div>
-                    <h3 class="project-title">Capstone Project <span class="mono project-tag-label">In Progress</span></h3>
-                    <p class="project-desc">Building tools to manage and evaluate AI agent swarms &mdash; role-based behaviours, inter-agent communication, sandboxing, and a UI for orchestrating multi-agent teams. Evaluating frameworks like Claude Flow and OpenClaw through a game systems design lens.</p>
-                    <span class="mono project-btn">Explore</span>
+                    <h3 class="project-title">Agentic Engineering Pro <span class="mono project-tag-label">In Progress</span></h3>
+                    <p class="project-desc">A model-agnostic multi-agent orchestration framework supporting simultaneous use of local and cloud AI models — Qwen, Claude, Gemini and more — through a unified interface. Includes empirical agentic research into instruction deviation: when and why agents fail to follow instructions, and what mitigations work. Built as a capstone research project.</p>
+                    <span class="mono project-btn">Coming Soon</span>
                 </div>
             </a>
 
-            <a class="project-card" href="#">
-                <div class="project-inner">
+            <div class="project-card" id="oaci-card" style="cursor:pointer;">
+                <div class="project-inner" id="oaci-content">
                     <div class="project-top">
                         <span class="mono project-num">02</span>
-                        <span class="project-icon">&#x1F50D;</span>
+                        <span class="project-icon">&#x2705;</span>
                     </div>
-                    <h3 class="project-title">Greybox Fuzzer</h3>
-                    <p class="project-desc">A custom greybox fuzzer targeting a closed-source Java application. Used JVM bytecode instrumentation via ASM to dynamically attach a Java agent at runtime, track internal program state, and automatically discover crash-inducing inputs without source code access.</p>
-                    <span class="mono project-btn">Explore</span>
+                    <h3 class="project-title">OACI Tasker</h3>
+                    <p class="project-desc">A personal task management system with a native Wear OS watch app, a Python/FastAPI backend, and an Android companion app. Tasks sync in real time over the local network. The watch app features swipe-based page navigation, a side pill menu, smooth tick animations on completion, and a history view of past completed tasks. Daily tasks auto-reset each morning.</p>
+                    <span class="mono project-btn" id="oaci-btn">Demo</span>
                 </div>
-            </a>
+                <div id="oaci-video-wrap" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;">
+                    <div id="oaci-video-container" style="position:relative;width:280px;height:280px;">
+                        <video id="oaci-video" src="assets/oaci-demo.mp4" muted playsinline
+                            style="width:280px;height:280px;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;box-shadow:0 0 24px rgba(255,107,0,0.4);">
+                        </video>
+                        <div id="oaci-pause-icon" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(0,0,0,0.6);border-radius:50%;align-items:center;justify-content:center;pointer-events:none;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <a class="project-card" href="#">
                 <div class="project-inner">
@@ -201,21 +211,25 @@
                     </div>
                     <h3 class="project-title">ML Sentiment API</h3>
                     <p class="project-desc">Trained a binary sentiment classification model, wrapped it in a Flask REST API, containerised the service with Docker, and deployed to AWS EC2. Includes a remote Python client for querying live predictions.</p>
-                    <span class="mono project-btn">Explore</span>
+                    <span class="mono project-btn">Coming Soon</span>
                 </div>
             </a>
 
-            <a class="project-card" href="#">
-                <div class="project-inner">
+            <div class="project-card" id="aebs-card" style="cursor:pointer;">
+                <div class="project-inner" id="aebs-content">
                     <div class="project-top">
                         <span class="mono project-num">04</span>
                         <span class="project-icon">&#x2699;&#xFE0F;</span>
                     </div>
                     <h3 class="project-title">AEBS Simulator</h3>
                     <p class="project-desc">Designed and implemented sensor configuration for an Automotive Emergency Braking System simulator in Rust. Safety-critical system following ISO-26262 standards with real-time constraints, fault injection testing, and comprehensive verification plans. 5-person team project.</p>
-                    <span class="mono project-btn">Explore</span>
+                    <span class="mono project-btn" id="aebs-btn">Preview</span>
                 </div>
-            </a>
+                <div id="aebs-preview-wrap" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;gap:12px;padding:1.5rem;box-sizing:border-box;">
+                    <img src="assets/aebs-simulation.jpg" style="height:100%;max-height:320px;width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
+                    <img src="assets/aebs-interface.jpg" style="height:100%;max-height:320px;width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
+                </div>
+            </div>
 
             <a class="project-card" href="#">
                 <div class="project-inner">
@@ -225,26 +239,116 @@
                     </div>
                     <h3 class="project-title">Access Granted</h3>
                     <p class="project-desc">Multiplayer cybersecurity educational game built with a 6-person team. Players solve authentication and password-hashing puzzles in a simulated desktop environment. Implemented full networking layer, SQLite authentication, and JavaFX UI. Two clients connect simultaneously for cooperative gameplay.</p>
-                    <span class="mono project-btn">Explore</span>
+                    <span class="mono project-btn">Coming Soon</span>
                 </div>
             </a>
 
-            <a class="project-card" href="#">
-                <div class="project-inner">
+            <div class="project-card" id="quickpanel-card" style="cursor:pointer;">
+                <div class="project-inner" id="quickpanel-content">
                     <div class="project-top">
                         <span class="mono project-num">06</span>
                         <span class="project-icon">⌚</span>
                     </div>
                     <h3 class="project-title">QuickPanel</h3>
                     <p class="project-desc">Wear OS + Android companion app for controlling phone quick settings from any Android watch running Wear OS. Features a custom grid view, drag-to-reorder tile editor, real-time state sync over Wearable Data Layer, and per-toggle workarounds for Samsung&rsquo;s blocked Settings APIs. Built in Kotlin with Jetpack Compose for Wear OS.</p>
-                    <span class="mono project-btn">Explore</span>
+                    <span class="mono project-btn" id="quickpanel-btn">Demo</span>
                 </div>
-            </a>
+                <div id="quickpanel-video-wrap" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;">
+                    <div id="quickpanel-video-container" style="position:relative;width:280px;height:280px;">
+                        <video id="quickpanel-video" src="assets/quickpanel-demo.mp4" muted playsinline
+                            style="width:280px;height:280px;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;box-shadow:0 0 24px rgba(255,107,0,0.4);">
+                        </video>
+                        <div id="quickpanel-pause-icon" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(0,0,0,0.6);border-radius:50%;align-items:center;justify-content:center;pointer-events:none;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>
 
     <script src="js/app.js"></script>
+    <script>
+        (function() {
+            function setupVideoCard(btnId, contentId, wrapId, containerId, videoId, pauseIconId) {
+                var btn = document.getElementById(btnId);
+                var content = document.getElementById(contentId);
+                var videoWrap = document.getElementById(wrapId);
+                var videoContainer = document.getElementById(containerId);
+                var video = document.getElementById(videoId);
+                var pauseIcon = document.getElementById(pauseIconId);
+                if (!btn) return;
+
+                function backToContent() {
+                    videoWrap.style.transition = 'opacity 0.3s ease';
+                    videoWrap.style.opacity = '0';
+                    video.pause();
+                    setTimeout(function() {
+                        videoWrap.style.display = 'none';
+                        pauseIcon.style.display = 'none';
+                        content.style.display = '';
+                        content.style.opacity = '0';
+                        setTimeout(function() { content.style.opacity = '1'; }, 50);
+                    }, 300);
+                }
+
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    content.style.transition = 'opacity 0.3s ease';
+                    content.style.opacity = '0';
+                    setTimeout(function() {
+                        content.style.display = 'none';
+                        videoWrap.style.display = 'flex';
+                        videoWrap.style.opacity = '0';
+                        videoWrap.style.transition = 'opacity 0.3s ease';
+                        setTimeout(function() { videoWrap.style.opacity = '1'; video.currentTime = 0; video.play(); }, 50);
+                        video.onended = backToContent;
+                    }, 300);
+                });
+
+                videoContainer.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (video.paused) { video.play(); pauseIcon.style.display = 'none'; }
+                    else { video.pause(); pauseIcon.style.display = 'flex'; }
+                });
+
+                videoWrap.addEventListener('click', backToContent);
+            }
+
+            setupVideoCard('oaci-btn','oaci-content','oaci-video-wrap','oaci-video-container','oaci-video','oaci-pause-icon');
+            setupVideoCard('quickpanel-btn','quickpanel-content','quickpanel-video-wrap','quickpanel-video-container','quickpanel-video','quickpanel-pause-icon');
+        })();
+
+        (function() {
+            var btn = document.getElementById('aebs-btn');
+            var content = document.getElementById('aebs-content');
+            var wrap = document.getElementById('aebs-preview-wrap');
+            if (!btn) return;
+            btn.addEventListener('click', function(e) {
+                e.preventDefault(); e.stopPropagation();
+                content.style.transition = 'opacity 0.3s ease';
+                content.style.opacity = '0';
+                setTimeout(function() {
+                    content.style.display = 'none';
+                    wrap.style.display = 'flex';
+                    wrap.style.opacity = '0';
+                    wrap.style.transition = 'opacity 0.3s ease';
+                    setTimeout(function() { wrap.style.opacity = '1'; }, 50);
+                }, 300);
+            });
+            wrap.addEventListener('click', function() {
+                wrap.style.transition = 'opacity 0.3s ease';
+                wrap.style.opacity = '0';
+                setTimeout(function() {
+                    wrap.style.display = 'none';
+                    content.style.display = '';
+                    content.style.opacity = '0';
+                    setTimeout(function() { content.style.opacity = '1'; }, 50);
+                }, 300);
+            });
+        })();
+    </script>
 </body>
 </html>
 

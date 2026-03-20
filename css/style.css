@@ -371,7 +371,8 @@ ul { list-style: none; }
 }
 
 .project-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     transition: background 0.2s;
@@ -389,7 +390,13 @@ ul { list-style: none; }
     padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
-    min-height: 300px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
 }
 
 .project-top {

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ML Sentiment API Architecture</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; }
+  </style>
+</head>
+<body>
+<svg width="860" height="540" viewBox="0 0 860 540" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff6b35"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#4488ff"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#44cc88"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="540" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="430" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="#ff6b35" font-family="'Segoe UI', sans-serif" filter="url(#glow)">ML Sentiment API Architecture</text>
+  <text x="430" y="58" text-anchor="middle" font-size="12" fill="#8888aa" font-family="'Segoe UI', sans-serif">NWEN243 Project 3 · Python · Flask · Docker · AWS EC2</text>
+  <line x1="80" y1="68" x2="780" y2="68" stroke="#ff6b35" stroke-width="1" opacity="0.3"/>
+
+  <!-- ========== TRAINING PIPELINE (top section) ========== -->
+  <rect x="30" y="82" width="800" height="108" rx="10" fill="#0d0d1a" stroke="#4488ff" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="55" y="100" font-size="11" fill="#4488ff" font-family="'Segoe UI', sans-serif" font-weight="600">TRAINING PIPELINE  (training_script.py)</text>
+
+  <!-- IMDB Dataset -->
+  <rect x="50" y="108" width="130" height="70" rx="8" fill="#2a2a4e" stroke="#4488ff" stroke-width="1.2"/>
+  <text x="115" y="130" text-anchor="middle" font-size="12" fill="#88aaff" font-family="'Segoe UI', sans-serif" font-weight="600">IMDB Dataset</text>
+  <text x="115" y="146" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">50k reviews</text>
+  <text x="115" y="160" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">HuggingFace</text>
+  <text x="115" y="172" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">datasets lib</text>
+
+  <!-- Vectorizer -->
+  <rect x="215" y="108" width="145" height="70" rx="8" fill="#2a2a4e" stroke="#4488ff" stroke-width="1.2"/>
+  <text x="287" y="130" text-anchor="middle" font-size="12" fill="#88aaff" font-family="'Segoe UI', sans-serif" font-weight="600">CountVectorizer</text>
+  <text x="287" y="146" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">Bag-of-Words</text>
+  <text x="287" y="160" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">max 5000 features</text>
+  <text x="287" y="172" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">sklearn</text>
+
+  <!-- Logistic Regression -->
+  <rect x="395" y="108" width="145" height="70" rx="8" fill="#2a2a4e" stroke="#4488ff" stroke-width="1.2"/>
+  <text x="467" y="128" text-anchor="middle" font-size="12" fill="#88aaff" font-family="'Segoe UI', sans-serif" font-weight="600">Logistic</text>
+  <text x="467" y="143" text-anchor="middle" font-size="12" fill="#88aaff" font-family="'Segoe UI', sans-serif" font-weight="600">Regression</text>
+  <text x="467" y="158" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">Binary classifier</text>
+  <text x="467" y="172" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">1000 iterations</text>
+
+  <!-- Saved Models -->
+  <rect x="575" y="108" width="235" height="70" rx="8" fill="#1a2a1a" stroke="#44cc88" stroke-width="1.4"/>
+  <text x="692" y="130" text-anchor="middle" font-size="12" fill="#88cc88" font-family="'Segoe UI', sans-serif" font-weight="600">Saved Artifacts</text>
+  <text x="692" y="148" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">sentiment_model.joblib</text>
+  <text x="692" y="162" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">vectorizer.joblib</text>
+  <text x="692" y="176" text-anchor="middle" font-size="9" fill="#667766" font-family="'Segoe UI', sans-serif">joblib.dump() → baked into Docker image</text>
+
+  <!-- Training arrows -->
+  <line x1="180" y1="143" x2="213" y2="143" stroke="#4488ff" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <line x1="360" y1="143" x2="393" y2="143" stroke="#4488ff" stroke-width="1.8" marker-end="url(#arrow-blue)"/>
+  <line x1="540" y1="143" x2="573" y2="143" stroke="#44cc88" stroke-width="1.8" marker-end="url(#arrow-green)"/>
+  <text x="186" y="138" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">fit</text>
+  <text x="365" y="138" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">train</text>
+  <text x="547" y="138" font-size="9" fill="#44cc88" font-family="'Segoe UI', sans-serif">save</text>
+
+  <!-- ========== INFERENCE PIPELINE ========== -->
+  <text x="430" y="218" text-anchor="middle" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">── INFERENCE PIPELINE ──</text>
+
+  <!-- Python Client -->
+  <rect x="30" y="232" width="135" height="72" rx="8" fill="#2a2a4e" stroke="#555577" stroke-width="1.2"/>
+  <text x="97" y="254" text-anchor="middle" font-size="12" fill="#ffffff" font-family="'Segoe UI', sans-serif" font-weight="600">Python Client</text>
+  <text x="97" y="270" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">sentiment_client.py</text>
+  <text x="97" y="284" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">requests.post()</text>
+  <text x="97" y="296" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">ip:32000/predict</text>
+
+  <!-- HTTP Arrow -->
+  <line x1="165" y1="268" x2="205" y2="268" stroke="#ff6b35" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="168" y="260" font-size="9" fill="#ff6b35" font-family="'Segoe UI', sans-serif">HTTP POST</text>
+  <text x="168" y="280" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">JSON body</text>
+
+  <!-- EC2 Instance outer -->
+  <rect x="207" y="222" width="621" height="92" rx="10" fill="#111120" stroke="#ff8844" stroke-width="1.5"/>
+  <text x="228" y="240" font-size="11" fill="#ff8844" font-family="'Segoe UI', sans-serif" font-weight="600">AWS EC2 Instance  (port 32000)</text>
+
+  <!-- Docker container -->
+  <rect x="222" y="248" width="591" height="56" rx="8" fill="#0d1a2a" stroke="#1e90ff" stroke-width="1.5" stroke-dasharray="5,2"/>
+  <text x="242" y="264" font-size="10" fill="#1e90ff" font-family="'Segoe UI', sans-serif" font-weight="600">🐳  Docker Container</text>
+
+  <!-- Flask API -->
+  <rect x="310" y="258" width="130" height="38" rx="6" fill="#2a2a4e" stroke="#ff6b35" stroke-width="1.2"/>
+  <text x="375" y="274" text-anchor="middle" font-size="12" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">Flask API</text>
+  <text x="375" y="288" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">POST /predict  →  app.py</text>
+
+  <!-- Arrow Flask → Model -->
+  <line x1="440" y1="277" x2="478" y2="277" stroke="#ff6b35" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- ML Model box -->
+  <rect x="480" y="258" width="160" height="38" rx="6" fill="#2a2a4e" stroke="#ff6b35" stroke-width="1.2"/>
+  <text x="560" y="273" text-anchor="middle" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">ML Model + Vectorizer</text>
+  <text x="560" y="288" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">joblib.load() at startup</text>
+
+  <!-- Arrow Model → Response -->
+  <line x1="640" y1="277" x2="678" y2="277" stroke="#ff6b35" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <!-- Response box -->
+  <rect x="680" y="258" width="122" height="38" rx="6" fill="#1a2a1a" stroke="#44cc88" stroke-width="1.2"/>
+  <text x="741" y="274" text-anchor="middle" font-size="12" fill="#88cc88" font-family="'Segoe UI', sans-serif" font-weight="600">Response</text>
+  <text x="741" y="288" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">{"sentiment":"Positive"}</text>
+
+  <!-- Response back arrow -->
+  <path d="M 165 285 C 140 310 55 310 55 305 L 55 308" stroke="#44cc88" stroke-width="1.5" fill="none" stroke-dasharray="4,2"/>
+  <line x1="165" y1="285" x2="207" y2="285" stroke="#44cc88" stroke-width="1.5"/>
+  <line x1="165" y1="268" x2="165" y2="286" stroke="#44cc88" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <!-- actually let's just draw a simple return arrow below -->
+
+  <!-- Saved Models → Flask (load arrow) -->
+  <line x1="670" y1="178" x2="560" y2="256" stroke="#44cc88" stroke-width="1.4" stroke-dasharray="4,2" marker-end="url(#arrow-green)"/>
+  <text x="630" y="225" font-size="9" fill="#44cc88" font-family="'Segoe UI', sans-serif">load</text>
+
+  <!-- ========== RESPONSE FLOW BACK ========== -->
+  <rect x="30" y="337" width="800" height="44" rx="8" fill="#111122" stroke="#333355" stroke-width="1"/>
+  <text x="430" y="355" text-anchor="middle" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">Response flow: Flask serialises prediction → Docker forwards → EC2 returns → Client prints "Sentiment: Positive/Negative"</text>
+  <text x="430" y="372" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">vectorizer.transform([text])  →  model.predict(X)  →  "Positive" if prediction[0] == 1 else "Negative"</text>
+
+  <!-- ========== LEGEND ========== -->
+  <rect x="30" y="395" width="800" height="135" rx="8" fill="#111122" stroke="#333355" stroke-width="1"/>
+  <text x="50" y="415" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">Stack &amp; Design Details</text>
+
+  <!-- col 1 -->
+  <text x="50" y="435" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">📦  Container:</text>
+  <text x="130" y="435" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">Docker image with Python 3, Flask, sklearn, joblib baked in</text>
+  <text x="50" y="453" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">☁️  Host:</text>
+  <text x="130" y="453" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">AWS EC2 instance, port 32000 exposed — client connects by public IP</text>
+  <text x="50" y="471" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">🤖  Model:</text>
+  <text x="130" y="471" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">Logistic Regression trained on IMDB 50k reviews — binary positive/negative</text>
+  <text x="50" y="489" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">🔤  Features:</text>
+  <text x="130" y="489" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">Bag-of-Words with CountVectorizer (max 5000 features) — no neural nets</text>
+  <text x="50" y="507" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">🔗  API:</text>
+  <text x="130" y="507" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">Single endpoint POST /predict — accepts {"text": "..."}, returns {"sentiment": "..."}</text>
+  <text x="50" y="523" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">🔑  Auth:</text>
+  <text x="130" y="523" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">.pem key-pair for EC2 SSH access — open port for public API access</text>
+</svg>
+</body>
+</html>

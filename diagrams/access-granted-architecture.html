@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Granted Architecture</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; }
+  </style>
+</head>
+<body>
+<svg width="860" height="560" viewBox="0 0 860 560" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ff6b35"/>
+    </marker>
+    <marker id="arrow-teal" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#44cccc"/>
+    </marker>
+    <marker id="arrow-grey" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#8888aa"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#44cc88"/>
+    </marker>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="860" height="560" fill="#1a1a2e"/>
+
+  <!-- Title -->
+  <text x="430" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#ff6b35" font-family="'Segoe UI', sans-serif" filter="url(#glow)">Access Granted — Architecture</text>
+  <text x="430" y="55" text-anchor="middle" font-size="12" fill="#8888aa" font-family="'Segoe UI', sans-serif">ENGR302 Group Project · Java · JavaFX · SQLite · TCP Networking</text>
+  <line x1="80" y1="65" x2="780" y2="65" stroke="#ff6b35" stroke-width="1" opacity="0.3"/>
+
+  <!-- ========== CLIENT A ========== -->
+  <rect x="18" y="78" width="175" height="300" rx="10" fill="#111120" stroke="#44cccc" stroke-width="1.5"/>
+  <text x="105" y="97" text-anchor="middle" font-size="11" fill="#44cccc" font-family="'Segoe UI', sans-serif" font-weight="600">CLIENT  A  (Host)</text>
+
+  <!-- MainMenu -->
+  <rect x="30" y="106" width="151" height="38" rx="6" fill="#2a2a4e" stroke="#555577" stroke-width="1"/>
+  <text x="105" y="122" text-anchor="middle" font-size="11" fill="#ccccff" font-family="'Segoe UI', sans-serif" font-weight="600">MainMenu</text>
+  <text x="105" y="136" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Host / Join buttons</text>
+
+  <!-- LobbyView -->
+  <rect x="30" y="152" width="151" height="38" rx="6" fill="#2a2a4e" stroke="#555577" stroke-width="1"/>
+  <text x="105" y="168" text-anchor="middle" font-size="11" fill="#ccccff" font-family="'Segoe UI', sans-serif" font-weight="600">LobbyView</text>
+  <text x="105" y="182" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Player list · Ready toggle</text>
+
+  <!-- DesktopHub -->
+  <rect x="30" y="198" width="151" height="58" rx="6" fill="#2a2a4e" stroke="#ff6b35" stroke-width="1.2"/>
+  <text x="105" y="215" text-anchor="middle" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">DesktopHub</text>
+  <text x="105" y="229" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Simulated OS desktop</text>
+  <text x="105" y="242" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">WindowManager · ToolRegistry</text>
+
+  <!-- Tools row -->
+  <rect x="30" y="265" width="45" height="36" rx="5" fill="#1e1e3a" stroke="#555577" stroke-width="1"/>
+  <text x="52" y="280" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Crypto</text>
+  <text x="52" y="293" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Tool</text>
+
+  <rect x="83" y="265" width="45" height="36" rx="5" fill="#1e1e3a" stroke="#555577" stroke-width="1"/>
+  <text x="105" y="280" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Bubble-</text>
+  <text x="105" y="293" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">base</text>
+
+  <rect x="136" y="265" width="45" height="36" rx="5" fill="#1e1e3a" stroke="#555577" stroke-width="1"/>
+  <text x="158" y="280" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Report</text>
+  <text x="158" y="293" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Tool</text>
+
+  <!-- SessionController A -->
+  <rect x="30" y="310" width="151" height="58" rx="6" fill="#2a1a2a" stroke="#cc88ff" stroke-width="1.2"/>
+  <text x="105" y="328" text-anchor="middle" font-size="11" fill="#cc88ff" font-family="'Segoe UI', sans-serif" font-weight="600">SessionController</text>
+  <text x="105" y="342" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Scene orchestration</text>
+  <text x="105" y="355" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">openOrJoin() · showDesktop()</text>
+
+  <!-- Scene flow arrows (A) -->
+  <line x1="105" y1="144" x2="105" y2="150" stroke="#8888aa" stroke-width="1.2" marker-end="url(#arrow-grey)"/>
+  <line x1="105" y1="190" x2="105" y2="196" stroke="#8888aa" stroke-width="1.2" marker-end="url(#arrow-grey)"/>
+  <line x1="105" y1="256" x2="105" y2="263" stroke="#8888aa" stroke-width="1.2" marker-end="url(#arrow-grey)"/>
+
+  <!-- ========== CLIENT B ========== -->
+  <rect x="667" y="78" width="175" height="300" rx="10" fill="#111120" stroke="#44cccc" stroke-width="1.5"/>
+  <text x="754" y="97" text-anchor="middle" font-size="11" fill="#44cccc" font-family="'Segoe UI', sans-serif" font-weight="600">CLIENT  B  (Joiner)</text>
+
+  <!-- MainMenu B -->
+  <rect x="679" y="106" width="151" height="38" rx="6" fill="#2a2a4e" stroke="#555577" stroke-width="1"/>
+  <text x="754" y="122" text-anchor="middle" font-size="11" fill="#ccccff" font-family="'Segoe UI', sans-serif" font-weight="600">MainMenu</text>
+  <text x="754" y="136" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Host / Join buttons</text>
+
+  <!-- LobbyView B -->
+  <rect x="679" y="152" width="151" height="38" rx="6" fill="#2a2a4e" stroke="#555577" stroke-width="1"/>
+  <text x="754" y="168" text-anchor="middle" font-size="11" fill="#ccccff" font-family="'Segoe UI', sans-serif" font-weight="600">LobbyView</text>
+  <text x="754" y="182" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Player list · Ready toggle</text>
+
+  <!-- DesktopHub B -->
+  <rect x="679" y="198" width="151" height="58" rx="6" fill="#2a2a4e" stroke="#ff6b35" stroke-width="1.2"/>
+  <text x="754" y="215" text-anchor="middle" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">DesktopHub</text>
+  <text x="754" y="229" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Simulated OS desktop</text>
+  <text x="754" y="242" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">WindowManager · ToolRegistry</text>
+
+  <!-- Tools row B -->
+  <rect x="679" y="265" width="45" height="36" rx="5" fill="#1e1e3a" stroke="#555577" stroke-width="1"/>
+  <text x="701" y="280" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Crypto</text>
+  <text x="701" y="293" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Tool</text>
+
+  <rect x="732" y="265" width="45" height="36" rx="5" fill="#1e1e3a" stroke="#555577" stroke-width="1"/>
+  <text x="754" y="280" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Bubble-</text>
+  <text x="754" y="293" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">base</text>
+
+  <rect x="785" y="265" width="45" height="36" rx="5" fill="#1e1e3a" stroke="#555577" stroke-width="1"/>
+  <text x="807" y="280" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Report</text>
+  <text x="807" y="293" text-anchor="middle" font-size="8" fill="#aaaacc" font-family="'Segoe UI', sans-serif">Tool</text>
+
+  <!-- SessionController B -->
+  <rect x="679" y="310" width="151" height="58" rx="6" fill="#2a1a2a" stroke="#cc88ff" stroke-width="1.2"/>
+  <text x="754" y="328" text-anchor="middle" font-size="11" fill="#cc88ff" font-family="'Segoe UI', sans-serif" font-weight="600">SessionController</text>
+  <text x="754" y="342" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Scene orchestration</text>
+  <text x="754" y="355" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">requestJoin() · showDesktop()</text>
+
+  <!-- Scene flow arrows (B) -->
+  <line x1="754" y1="144" x2="754" y2="150" stroke="#8888aa" stroke-width="1.2" marker-end="url(#arrow-grey)"/>
+  <line x1="754" y1="190" x2="754" y2="196" stroke="#8888aa" stroke-width="1.2" marker-end="url(#arrow-grey)"/>
+  <line x1="754" y1="256" x2="754" y2="263" stroke="#8888aa" stroke-width="1.2" marker-end="url(#arrow-grey)"/>
+
+  <!-- ========== CENTRE: NETWORKING + SHARED LAYER ========== -->
+
+  <!-- LobbyNet interface label -->
+  <text x="430" y="96" text-anchor="middle" font-size="10" fill="#44cccc" font-family="'Segoe UI', sans-serif" font-weight="600">NETWORKING LAYER</text>
+
+  <!-- TcpLobbyNet / LocalStubLobbyNet -->
+  <rect x="280" y="103" width="300" height="60" rx="8" fill="#0d1a1a" stroke="#44cccc" stroke-width="1.5"/>
+  <text x="430" y="122" text-anchor="middle" font-size="12" fill="#44cccc" font-family="'Segoe UI', sans-serif" font-weight="600">LobbyNet  (interface)</text>
+  <text x="340" y="140" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">TcpLobbyNet</text>
+  <text x="430" y="140" text-anchor="middle" font-size="10" fill="#556677" font-family="'Segoe UI', sans-serif">|</text>
+  <text x="520" y="140" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">LocalStubLobbyNet</text>
+  <text x="430" y="155" text-anchor="middle" font-size="9" fill="#667777" font-family="'Segoe UI', sans-serif">openOrJoin · requestJoin · setReady · allReady · onLobbyUpdated</text>
+
+  <!-- Network arrows (A → LobbyNet → B) -->
+  <line x1="193" y1="133" x2="278" y2="133" stroke="#44cccc" stroke-width="1.8" marker-end="url(#arrow-teal)"/>
+  <line x1="582" y1="133" x2="665" y2="133" stroke="#44cccc" stroke-width="1.8" marker-end="url(#arrow-teal)"/>
+  <text x="228" y="126" font-size="9" fill="#44cccc" font-family="'Segoe UI', sans-serif">host</text>
+  <text x="605" y="126" font-size="9" fill="#44cccc" font-family="'Segoe UI', sans-serif">join</text>
+
+  <!-- EventBus -->
+  <rect x="310" y="185" width="240" height="50" rx="8" fill="#1a1a0d" stroke="#cccc44" stroke-width="1.3"/>
+  <text x="430" y="205" text-anchor="middle" font-size="12" fill="#cccc88" font-family="'Segoe UI', sans-serif" font-weight="600">EventBus</text>
+  <text x="430" y="221" text-anchor="middle" font-size="10" fill="#8888aa" font-family="'Segoe UI', sans-serif">on(event, handler) · emit(event, payload)</text>
+
+  <!-- ClipboardService -->
+  <rect x="310" y="248" width="110" height="45" rx="8" fill="#1a1a0d" stroke="#cccc44" stroke-width="1.3"/>
+  <text x="365" y="266" text-anchor="middle" font-size="11" fill="#cccc88" font-family="'Segoe UI', sans-serif" font-weight="600">Clipboard</text>
+  <text x="365" y="281" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">put(tag, value)</text>
+
+  <!-- Identity / ResourceLoader -->
+  <rect x="440" y="248" width="110" height="45" rx="8" fill="#1a1a0d" stroke="#cccc44" stroke-width="1.3"/>
+  <text x="495" y="266" text-anchor="middle" font-size="11" fill="#cccc88" font-family="'Segoe UI', sans-serif" font-weight="600">Identity</text>
+  <text x="495" y="281" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">defaultDisplayName()</text>
+
+  <!-- Persistence layer -->
+  <rect x="310" y="310" width="240" height="60" rx="8" fill="#1a0d0d" stroke="#cc4444" stroke-width="1.3"/>
+  <text x="430" y="330" text-anchor="middle" font-size="12" fill="#cc8888" font-family="'Segoe UI', sans-serif" font-weight="600">Persistence</text>
+  <rect x="322" y="338" width="100" height="26" rx="5" fill="#2a1a1a" stroke="#994444" stroke-width="1"/>
+  <text x="372" y="356" text-anchor="middle" font-size="10" fill="#cc8888" font-family="'Segoe UI', sans-serif">PlayerProfileDB</text>
+  <rect x="434" y="338" width="104" height="26" rx="5" fill="#2a1a1a" stroke="#994444" stroke-width="1"/>
+  <text x="486" y="356" text-anchor="middle" font-size="10" fill="#cc8888" font-family="'Segoe UI', sans-serif">PuzzleFileLoader</text>
+
+  <!-- SQLite badge -->
+  <text x="372" y="370" text-anchor="middle" font-size="9" fill="#885555" font-family="'Segoe UI', sans-serif">SQLite profiles</text>
+  <text x="486" y="370" text-anchor="middle" font-size="9" fill="#885555" font-family="'Segoe UI', sans-serif">NaP · Salt puzzles</text>
+
+  <!-- Arrows: clients → EventBus -->
+  <line x1="181" y1="225" x2="308" y2="218" stroke="#cccc44" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arrow-grey)"/>
+  <line x1="679" y1="218" x2="552" y2="213" stroke="#cccc44" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arrow-grey)"/>
+
+  <!-- Arrows: clients → Clipboard -->
+  <line x1="181" y1="265" x2="308" y2="265" stroke="#cccc44" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arrow-grey)"/>
+  <line x1="679" y1="265" x2="552" y2="265" stroke="#cccc44" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arrow-grey)"/>
+
+  <!-- Arrows: clients → Persistence -->
+  <line x1="181" y1="339" x2="308" y2="339" stroke="#cc4444" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arrow-grey)"/>
+  <line x1="679" y1="339" x2="552" y2="339" stroke="#cc4444" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arrow-grey)"/>
+
+  <!-- ========== PUZZLE FLOW BANNER ========== -->
+  <rect x="18" y="392" width="824" height="74" rx="8" fill="#0d0d1a" stroke="#ff6b35" stroke-width="1.2"/>
+  <text x="430" y="410" text-anchor="middle" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">PUZZLE FLOW — Cybersecurity Education</text>
+
+  <!-- NaP puzzle -->
+  <rect x="32" y="418" width="175" height="40" rx="6" fill="#2a2a4e" stroke="#555577" stroke-width="1"/>
+  <text x="119" y="434" text-anchor="middle" font-size="11" fill="#ccccff" font-family="'Segoe UI', sans-serif" font-weight="600">NaP Puzzle</text>
+  <text x="119" y="450" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Name-and-Password challenge</text>
+
+  <!-- Salt/Hash puzzle -->
+  <rect x="222" y="418" width="200" height="40" rx="6" fill="#2a2a4e" stroke="#555577" stroke-width="1"/>
+  <text x="322" y="434" text-anchor="middle" font-size="11" fill="#ccccff" font-family="'Segoe UI', sans-serif" font-weight="600">Salt Pool Puzzle</text>
+  <text x="322" y="450" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">SHA256 · SHA512 · MD5 hashing</text>
+
+  <!-- CryptoTool -->
+  <rect x="436" y="418" width="165" height="40" rx="6" fill="#2a2a4e" stroke="#ff6b35" stroke-width="1.2"/>
+  <text x="518" y="434" text-anchor="middle" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">CryptoTool</text>
+  <text x="518" y="450" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Hash · clipboard copy/paste</text>
+
+  <!-- ScoreTracker -->
+  <rect x="616" y="418" width="215" height="40" rx="6" fill="#1a2a1a" stroke="#44cc88" stroke-width="1.2"/>
+  <text x="723" y="434" text-anchor="middle" font-size="11" fill="#88cc88" font-family="'Segoe UI', sans-serif" font-weight="600">ScoreTracker</text>
+  <text x="723" y="450" text-anchor="middle" font-size="9" fill="#8888aa" font-family="'Segoe UI', sans-serif">Progress · completion tracking</text>
+
+  <!-- Puzzle flow arrows -->
+  <line x1="207" y1="438" x2="220" y2="438" stroke="#ff6b35" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="422" y1="438" x2="434" y2="438" stroke="#ff6b35" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="601" y1="438" x2="614" y2="438" stroke="#44cc88" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- ========== LEGEND ========== -->
+  <rect x="18" y="480" width="824" height="68" rx="8" fill="#111122" stroke="#333355" stroke-width="1"/>
+  <text x="38" y="498" font-size="11" fill="#ff6b35" font-family="'Segoe UI', sans-serif" font-weight="600">Architecture Notes</text>
+
+  <rect x="38" y="507" width="9" height="9" rx="2" fill="#44cccc"/>
+  <text x="54" y="516" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">LobbyNet abstraction supports both TCP (real network) and LocalStub (single-machine dev) — swapped at startup</text>
+
+  <rect x="38" y="522" width="9" height="9" rx="2" fill="#cccc44"/>
+  <text x="54" y="531" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">EventBus decouples tools from game logic; ClipboardService lets players copy hashes between desktop tools for puzzle solving</text>
+
+  <rect x="38" y="537" width="9" height="9" rx="2" fill="#cc88ff"/>
+  <text x="54" y="546" font-size="10" fill="#ccccdd" font-family="'Segoe UI', sans-serif">SessionController drives all scene transitions — MainMenu → Lobby (both players ready) → Desktop (game starts)</text>
+</svg>
+</body>
+</html>
