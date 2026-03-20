@@ -181,7 +181,7 @@
                 </div>
             </a>
 
-            <div class="project-card" id="oaci-card" style="cursor:pointer;">
+            <div class="project-card" id="oaci-card" style="cursor:pointer;position:relative;">
                 <div class="project-inner" id="oaci-content">
                     <div class="project-top">
                         <span class="mono project-num">02</span>
@@ -191,10 +191,10 @@
                     <p class="project-desc">A personal task management system with a native Wear OS watch app, a Python/FastAPI backend, and an Android companion app. Tasks sync in real time over the local network. The watch app features swipe-based page navigation, a side pill menu, smooth tick animations on completion, and a history view of past completed tasks. Daily tasks auto-reset each morning.</p>
                     <span class="mono project-btn" id="oaci-btn">Demo</span>
                 </div>
-                <div id="oaci-video-wrap" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;">
-                    <div id="oaci-video-container" style="position:relative;width:280px;height:280px;">
+                <div id="oaci-video-wrap" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;">
+                    <div id="oaci-video-container" style="position:relative;width:min(280px,80%);height:min(280px,80vw);">
                         <video id="oaci-video" src="assets/oaci-demo.mp4" muted playsinline
-                            style="width:280px;height:280px;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;box-shadow:0 0 24px rgba(255,107,0,0.4);">
+                            style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;box-shadow:0 0 24px rgba(255,107,0,0.4);">
                         </video>
                         <div id="oaci-pause-icon" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(0,0,0,0.6);border-radius:50%;align-items:center;justify-content:center;pointer-events:none;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -215,7 +215,7 @@
                 </div>
             </a>
 
-            <div class="project-card" id="aebs-card" style="cursor:pointer;">
+            <div class="project-card" id="aebs-card" style="cursor:pointer;position:relative;">
                 <div class="project-inner" id="aebs-content">
                     <div class="project-top">
                         <span class="mono project-num">04</span>
@@ -225,7 +225,7 @@
                     <p class="project-desc">Designed and implemented sensor configuration for an Automotive Emergency Braking System simulator in Rust. Safety-critical system following ISO-26262 standards with real-time constraints, fault injection testing, and comprehensive verification plans. 5-person team project.</p>
                     <span class="mono project-btn" id="aebs-btn">Preview</span>
                 </div>
-                <div id="aebs-preview-wrap" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;gap:12px;padding:1.5rem;box-sizing:border-box;">
+                <div id="aebs-preview-wrap" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;align-items:center;justify-content:center;gap:12px;padding:1.5rem;box-sizing:border-box;">
                     <img src="assets/aebs-simulation.jpg" style="height:100%;max-height:320px;width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
                     <img src="assets/aebs-interface.jpg" style="height:100%;max-height:320px;width:auto;border:1px solid rgba(255,107,0,0.4);border-radius:4px;object-fit:contain;">
                 </div>
@@ -243,7 +243,7 @@
                 </div>
             </a>
 
-            <div class="project-card" id="quickpanel-card" style="cursor:pointer;">
+            <div class="project-card" id="quickpanel-card" style="cursor:pointer;position:relative;">
                 <div class="project-inner" id="quickpanel-content">
                     <div class="project-top">
                         <span class="mono project-num">06</span>
@@ -253,10 +253,10 @@
                     <p class="project-desc">Wear OS + Android companion app for controlling phone quick settings from any Android watch running Wear OS. Features a custom grid view, drag-to-reorder tile editor, real-time state sync over Wearable Data Layer, and per-toggle workarounds for Samsung&rsquo;s blocked Settings APIs. Built in Kotlin with Jetpack Compose for Wear OS.</p>
                     <span class="mono project-btn" id="quickpanel-btn">Demo</span>
                 </div>
-                <div id="quickpanel-video-wrap" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;">
-                    <div id="quickpanel-video-container" style="position:relative;width:280px;height:280px;">
+                <div id="quickpanel-video-wrap" style="display:none;position:absolute;top:0;left:0;width:100%;height:100%;align-items:center;justify-content:center;flex-direction:column;">
+                    <div id="quickpanel-video-container" style="position:relative;width:min(280px,80%);height:min(280px,80vw);">
                         <video id="quickpanel-video" src="assets/quickpanel-demo.mp4" muted playsinline
-                            style="width:280px;height:280px;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;box-shadow:0 0 24px rgba(255,107,0,0.4);">
+                            style="width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid #FF6B00;box-shadow:0 0 24px rgba(255,107,0,0.4);">
                         </video>
                         <div id="quickpanel-pause-icon" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;background:rgba(0,0,0,0.6);border-radius:50%;align-items:center;justify-content:center;pointer-events:none;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
